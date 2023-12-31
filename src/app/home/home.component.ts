@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -9,7 +10,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   standalone: true,
   imports: [
     RouterLink, RouterLinkActive,
-    MatToolbarModule, MatIconModule, MatButtonModule
+    MatToolbarModule, MatIconModule, MatButtonModule, MatTooltipModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
