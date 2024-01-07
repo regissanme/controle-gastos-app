@@ -1,0 +1,106 @@
+<div class="main">
+  <div class="container">
+
+    <span class="close-icon">
+      <a routerLink="/home">
+        <mat-icon>close</mat-icon>
+      </a>
+    </span>
+
+    <div class="register form">
+      <header>Cadastrar Conta</header>
+
+      <div class="sub-header">
+        Insira os dados para o cadastro.
+      </div>
+
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+        <div class="input-area">
+          <input type="text" placeholder="Nome Completo" name="name" [(ngModel)]="form.name" required #name="ngModel"
+            autocomplete="name" [ngClass]="{ 'input-error': name.errors && f.submitted }">
+
+          <div class="invalid-feedback">
+            @if (name.errors && f.submitted) {
+            <div>* Nome é obrigatório!</div>
+            }
+          </div>
+        </div>
+
+        <div class="input-area">
+          <input type="date" placeholder="Data Nascimento" name="birthdate" [(ngModel)]="form.birthdate"
+            #birthdate="ngModel" autocomplete="birthdate">
+        </div>
+
+        <div class="input-area">
+          <input type="text" placeholder="Entre com um email válido" name="username" [(ngModel)]="form.username"
+            required #username="ngModel" autocomplete="username"
+            [ngClass]="{ 'input-error': username.errors && f.submitted }">
+
+          <div class="invalid-feedback">
+            @if (username.errors && f.submitted) {
+            <div>* Email é obrigatório!</div>
+            }
+          </div>
+        </div>
+
+        <div class="input-area">
+          <input type="password" placeholder="Senha" name="password" [(ngModel)]="form.password" required minlength="6"
+            #password="ngModel" [ngClass]="{ 'input-error': f.submitted && password.errors }"
+            autocomplete="current-password" />
+
+          @if (password.errors && f.submitted) {
+          <div class="invalid-feedback">
+            @if (password.errors['required']) {
+            <div>* Senha é obrigatória!</div>
+            }
+            @if (password.errors['minlength']) {
+            <div>Senha deve ter ao menos 6 caracteres</div>
+            }
+          </div>
+          }
+
+        </div>
+
+        <div class="input-area">
+          <input type="password" placeholder="Confirmar Senha" name="confirmPassword" required minlength="6"
+            [(ngModel)]="confirmPassword" [ngClass]="{ 'input-error': f.submitted && confirmpassword.errors }"
+            #confirmpassword="ngModel" autocomplete="none" />
+
+          @if (confirmpassword.errors && f.submitted) {
+          <div class="invalid-feedback">
+            @if (confirmpassword.errors['required']) {
+            <div>* Confirme a senha!</div>
+            }
+            @if (confirmpassword.errors['minlength']) {
+            <div>Senha deve ter ao menos 6 caracteres</div>
+            }
+
+          </div>
+          }
+
+          @if (!passwordCheck() && f.submitted) {
+          <div class="invalid-feedback">
+            <div>* As senhas não são iguais</div>
+          </div>
+          }
+
+
+        </div>
+
+        @if (isRegisterFailed) {
+        <div class="api-error"> {{ errorMessage }}</div>
+        }
+
+        <input type="submit" class="button" value="Cadastrar">
+
+      </form>
+      <div class="signup">
+        <span class="signup">Já tem uma conta?
+          <label for="check" routerLink="/login">Login</label>
+        </span>
+      </div>
+    </div>
+
+  </div>
+</div>
