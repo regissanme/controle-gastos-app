@@ -7,7 +7,7 @@ export const errorInterceptorInterceptor: HttpInterceptorFn = (req, next: HttpHa
       catchError((err: HttpErrorResponse) => {
         let errorMessage = `;( :: ${err.statusText}: ${err.message}`;
 
-        // Todo: Mostrar erro para o usuário
+        // TODO: Mostrar erro para o usuário
         console.log("Error caught in interceptor: " + errorMessage);
         return throwError(() => err)
       }
