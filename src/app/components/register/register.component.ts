@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../core/auth/auth.service';
 import { StorageService } from '../../core/auth/storage.service';
+import { UserService } from '../../core/auth/user.service';
+import { Register } from '../shared/models/register';
 
 @Component({
   selector: 'app-register',
@@ -21,39 +20,39 @@ import { StorageService } from '../../core/auth/storage.service';
 })
 export class RegisterComponent {
 
-  form: any = {
-    name: null,
-    birthdate: null,
-    username: null,
-    password: null
+  form: Register = {
+    name: '',
+    birthdate: '',
+    username: '',
+    password: ''
   };
   confirmPassword = '';
 
   errorMessage = '';
+  isRegistered = false;
   isRegisterFailed = false;
 
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
     private storageService: StorageService
   ) { }
 
 
   onSubmit(): void {
-    const { name, birthdate, username, password } = this.form;
+    const user: Register = this.form;
 
-    if (name && username && password) {
+    if (user && this.passwordCheck()) {
 
-      this.authService.login(username, password).subscribe({
+      this.userService.register(user).subscribe({
         next: data => {
           console.log('Received data: ' + JSON.stringify(data));
           this.storageService.setUser(data);
+          this.isRegistered = true;
           this.isRegisterFailed = false;
         },
         error: err => {
-          console.log(JSON.stringify(err));
-          this.errorMessage = err.message + ": " + err.message;
-          this.isRegisterFailed = true;
-          throw new Error(err.message);
+          this.handleError(err);
+          throw new Error(err);
         }
       });
     }
@@ -61,6 +60,26 @@ export class RegisterComponent {
 
   passwordCheck(): boolean {
     return this.confirmPassword === this.form.password;
+  }
+
+  handleError(err: HttpErrorResponse) {
+    console.log(JSON.stringify(err));
+
+    this.isRegistered = false;
+    this.isRegisterFailed = true;
+
+    const errorFields = [] = [''];
+    if (err.error.fields) {
+      err.error.fields.map((field: { errorMessage: string; }, index = 0) => errorFields[index] = field.errorMessage);
+      this.errorMessage = `${errorFields}`;
+
+    } if (err.error.title) {
+      this.errorMessage = `${err.error.title}`;
+    } else {
+      this.errorMessage = `${err.message}`;
+    }
+
+
   }
 
 }
