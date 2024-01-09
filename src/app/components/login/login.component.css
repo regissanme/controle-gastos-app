@@ -144,6 +144,16 @@
   text-decoration: underline;
 }
 
+.signup .name {
+  color: #4b0082;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.signup .name:hover {
+  text-decoration: underline;
+}
+
 .is-invalid {
   border: 2px solid #d40000;
 }
