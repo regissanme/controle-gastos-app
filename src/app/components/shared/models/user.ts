@@ -4,7 +4,7 @@ export class User {
   name: string = '';
   role: string = '';
   active: boolean = false;
-  birthDate: string = '';
+  birthdate: string = '';
   lastAccessAt: string = '';
   token: string = '';
 
@@ -14,7 +14,7 @@ export class User {
     name: string,
     role: string,
     active: boolean,
-    birthDate: string,
+    birthdate: string,
     lastAccessAt: string,
     token: string
   ) {
@@ -23,7 +23,7 @@ export class User {
     this.name = name;
     this.role = role;
     this.active = active;
-    this.birthDate = birthDate;
+    this.birthdate = birthdate;
     this.lastAccessAt = lastAccessAt;
     this.token = token;
   }
