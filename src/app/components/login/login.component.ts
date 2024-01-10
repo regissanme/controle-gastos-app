@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { StorageService } from '../../core/auth/storage.service';
 
@@ -32,15 +32,16 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
 
 
 
   ngOnInit(): void {
+    console.log('login on init - logged in: ', this.storageService.isLoggedIn());
     if (this.storageService.isLoggedIn()) {
-      this.isLoggedIn = true;
-      this.role = this.storageService.getUser().role;
+      this.navigateToDashboard();
     }
   }
 
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.role = this.storageService.getUser().role;
-          // this.reloadPage();
+          this.navigateToDashboard();
         },
         error: err => {
           this.handleError(err);
@@ -90,6 +91,10 @@ export class LoginComponent implements OnInit {
       }
     }
 
+  }
+
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
 }
