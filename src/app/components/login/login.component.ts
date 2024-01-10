@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { StorageService } from '../../core/auth/storage.service';
@@ -62,15 +60,37 @@ export class LoginComponent implements OnInit {
           // this.reloadPage();
         },
         error: err => {
-          console.log(JSON.stringify(err));
-          this.errorMessage = err.message + ": " + err.message;
+          this.handleError(err);
           this.isLoginFailed = true;
-          throw new Error(err.message);
+          throw new HttpErrorResponse(err);
         }
       });
     }
   }
 
-}
+  handleError(err: HttpErrorResponse) {
+    // console.log(JSON.stringify(err));
 
+    const errorFields = [] = [''];
+
+    if (err.status === 403) {
+      this.errorMessage = 'Email ou senha inválido(s)!';
+    } else {
+      if (err.error) {
+        if (err.error?.fields) {
+          err.error.fields.map((field: { errorMessage: string; }, index = 0) => errorFields[index] = field.errorMessage);
+          this.errorMessage = `${errorFields}`;
+
+        } else if (err.error?.title) {
+          this.errorMessage = `${err.error.title}`;
+        }
+      } else {
+
+        this.errorMessage = `${err.status} - ${err.message}`;
+      }
+    }
+
+  }
+
+}
 

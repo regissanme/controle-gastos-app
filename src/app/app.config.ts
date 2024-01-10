@@ -11,8 +11,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
-    // provideHttpClient(),
-    provideHttpClient(withInterceptors([errorInterceptorInterceptor])),
+    provideHttpClient(),
+    // provideHttpClient(withInterceptors([errorInterceptorInterceptor])),
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandlerService

@@ -52,7 +52,7 @@ export class RegisterComponent {
         },
         error: err => {
           this.handleError(err);
-          throw new Error(err);
+          throw new HttpErrorResponse(err);
         }
       });
     }
@@ -63,7 +63,7 @@ export class RegisterComponent {
   }
 
   handleError(err: HttpErrorResponse) {
-    console.log(JSON.stringify(err));
+    // console.log(JSON.stringify(err));
 
     this.isRegistered = false;
     this.isRegisterFailed = true;
@@ -73,7 +73,7 @@ export class RegisterComponent {
       err.error.fields.map((field: { errorMessage: string; }, index = 0) => errorFields[index] = field.errorMessage);
       this.errorMessage = `${errorFields}`;
 
-    } if (err.error.title) {
+    } else if (err.error.title) {
       this.errorMessage = `${err.error.title}`;
     } else {
       this.errorMessage = `${err.message}`;

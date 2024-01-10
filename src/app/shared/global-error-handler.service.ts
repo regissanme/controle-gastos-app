@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,15 +8,30 @@ export class GlobalErrorHandlerService implements ErrorHandler {
 
   constructor() { }
 
-  handleError(error: any): void {
+  handleError(err: HttpErrorResponse): void {
     let errorMessage = '';
+    const errorFields = [] = [''];
 
-    if (error instanceof ErrorEvent) {
-      errorMessage = `Error Event: ;( :: ${error.error.message}`;
-    } else {
-      errorMessage = `Error: ;( :: ${error.status}: ${error.message}`;
+    if (err instanceof ErrorEvent) {
+      console.log("ErrorEvent recebido!");
     }
-    // Todo: Mostrar erro ao usuário
+
+    if (err.error) {
+
+      if (err.error?.fields) {
+        err.error.fields.map((field: { errorMessage: string; }, index = 0) => errorFields[index] = field.errorMessage);
+        errorMessage = `handler fields: ${errorFields}`;
+
+      } else if (err.error?.title) {
+        errorMessage = `handler title: ${err.error.title}`;
+      }
+    } else {
+      // console.log("handler json: ", JSON.stringify(err));
+      errorMessage = `handler: ${err.message}`;
+    }
+
+
+    // TODO: Mostrar erro ao usuário
     console.error(errorMessage);
   }
 
