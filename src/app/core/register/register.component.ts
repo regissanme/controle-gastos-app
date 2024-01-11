@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { StorageService } from '../../core/auth/storage.service';
-import { UserService } from '../../core/auth/user.service';
-import { Register } from '../shared/models/register';
+import { StorageService } from '../storage/storage.service';
+import { UserService } from '../auth/user.service';
+import { Register } from '../../shared/models/register';
 
 @Component({
   selector: 'app-register',

@@ -4,8 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../core/auth/auth.service';
-import { StorageService } from '../../core/auth/storage.service';
+import { AuthService } from '../auth/auth.service';
+import { StorageService } from '../storage/storage.service';
 
 
 @Component({

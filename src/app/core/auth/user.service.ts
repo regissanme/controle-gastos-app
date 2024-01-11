@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Register } from '../../components/shared/models/register';
+import { Register } from '../../shared/models/register';
 
 const AUTH_API = "http://localhost:8080/api/v1/users";
 

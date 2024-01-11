@@ -1,0 +1,24 @@
+<mat-toolbar class="mat-elevation-z3">
+  <button mat-icon-button (click)="collapsed.set(!collapsed())">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>eXpenses</span>
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav mode="side" opened [style.width]="sidenavWidth()">
+      <app-custom-sidenav [collapsed]="collapsed()" />
+    </mat-sidenav>
+
+    <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+      <div>
+        <span> Nome: {{ user?.name }} </span> <br>
+        <span> Email: {{ user?.username }} </span> <br>
+        <span> Data Nascimento: {{ user?.birthdate }} </span> <br>
+        <span> Tipo: {{ user?.role }} </span> <br>
+        <span> Ativo: {{ user?.active }} </span> <br>
+        <span> Último Acesso: {{ user?.lastAccessAt }} </span> <br>
+      </div>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
