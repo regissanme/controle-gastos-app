@@ -1,31 +1,47 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
-import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router, RouterOutlet } from '@angular/router';
+import { StorageService } from '../../../core/storage/storage.service';
+import { User } from '../../../shared/models/user';
+import { CustomSidenavComponent } from '../../components/custom-sidenav/custom-sidenav.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    RouterLink, RouterLinkActive,
-    MatToolbarModule, MatIconModule, MatButtonModule, MatTooltipModule
+    RouterOutlet,
+    CustomSidenavComponent,
+    MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
 
-  fixedToolbar: boolean = false;
+  title = 'Meu Saldo';
 
-  @HostListener('window:scroll', ['$event']) onScroll() {
-    if (window.scrollY > 70) {
-      this.fixedToolbar = true;
+  collapsed = signal(true);
+  sidenavWidth = computed(() => this.collapsed() ? '65px' : '200px');
+
+  user?: User;
+
+  constructor(
+    private storageService: StorageService,
+    private router: Router
+  ) { }
+
+
+  ngOnInit(): void {
+    console.log('dashboard on init - logged in: ', this.storageService.isLoggedIn());
+    if (!this.storageService.isLoggedIn()) {
+      // this.router.navigate(['/login']);
     } else {
-      this.fixedToolbar = false;
+      this.user = this.storageService.getUser();
     }
-
   }
+
 
 }
