@@ -1,22 +1,35 @@
+:host * {
+  transition: all 500ms ease-in-out;
+}
 
-.sidenav-header{
+.sidenav-header {
   padding-top: 24px;
   text-align: center;
+  margin-bottom: 20px;
 
-  > img {
+  > button {
+    background: var(--middle-green);
+    font-size: 2rem;
+    font-weight: bold;
+    object-fit: cover;
+  }
+
+  >img {
     border-radius: 100%;
     object-fit: cover;
     margin-bottom: 10px;
   }
 
   .header-text {
-    > h2 {
+    height: 3rem;
+
+    >h2 {
       margin: 0;
       font-size: 1rem;
       line-height: 1.5rem;
     }
 
-    > p {
+    >p {
       margin: 0;
       font-size: 0.8rem;
     }
@@ -25,5 +38,20 @@
 
 .hide-header-text {
   opacity: 0;
-  height: 0px;
+  height: 0px !important;
+  display: none;
+}
+
+.menu-item {
+  border-left: 5px solid;
+  border-left-color: rgba(0, 0, 0, 0);
+}
+
+.selected-menu-item {
+  border-left-color: var(--middle-green);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+a > mat-icon {
+  color: var(--middle-green-dark);
 }
