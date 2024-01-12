@@ -1,3 +1,24 @@
+
+mat-toolbar {
+  position: relative;
+  z-index: 5;
+  margin-bottom: 10px;
+
+  > img {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+  }
+
+  > span {
+    margin-right: 5px;
+  }
+
+  > a {
+    margin-right: 5px;
+  }
+}
+
 .fixed {
   position: fixed;
   width: 100%;
@@ -62,14 +83,14 @@
   box-sizing: border-box;
 }
 
-html {
+/* html {
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
   -webkit-tap-highlight-color: transparent;
-}
+} */
 
 @-ms-viewport {
   width: device-width;
@@ -89,7 +110,7 @@ section {
   display: block;
 }
 
-body {
+/* body {
   margin: 0;
   font-family: "Inter UI", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
@@ -98,7 +119,7 @@ body {
   color: #343a40;
   text-align: left;
   background-color: #ffffff;
-}
+} */
 
 [tabindex="-1"]:focus {
   outline: 0 !important;
@@ -125,20 +146,20 @@ p {
   margin-bottom: 1rem;
 }
 
-abbr[title],
+/* abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
   cursor: help;
   border-bottom: 0;
-}
+} */
 
-address {
+/* address {
   margin-bottom: 1rem;
   font-style: normal;
   line-height: inherit;
-}
+} */
 
 ol,
 ul,
@@ -2664,6 +2685,7 @@ fieldset:disabled a.btn {
   color: #ffffff;
   background-color: #3d5afe;
   border-color: #3d5afe;
+  margin-right: 6px;
 }
 
 .btn-primary:hover {
@@ -2740,6 +2762,7 @@ fieldset:disabled a.btn {
   color: #ffffff;
   background-color: #00e676;
   border-color: #00e676;
+  margin-top: 5px;
 }
 
 .btn-success:hover {
@@ -10689,7 +10712,7 @@ p a:hover,
 }
 
 .dot-circle:before {
-  background: rgba(61, 90, 254, 0.1);
+  background: rgba(61, 90, 254, 0.2);
   transition: all .25s ease-out;
   border-radius: 50%;
   -webkit-transform: rotate(0);
@@ -10773,7 +10796,7 @@ p a:hover,
 }
 
 .pricing-table .card .h1 {
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 400;
 }
 
@@ -10981,7 +11004,7 @@ footer a:hover {
   border-radius: 50%;
   display: inline-block;
   vertical-align: middle;
-  background-color: #f8f9fa;
+  background-color: #d8d9da;
   margin: 1rem;
 }
 

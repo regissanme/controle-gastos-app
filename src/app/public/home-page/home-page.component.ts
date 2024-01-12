@@ -20,7 +20,7 @@ export class HomePageComponent {
   fixedToolbar: boolean = false;
 
   @HostListener('window:scroll', ['$event']) onScroll() {
-    if (window.scrollY > 70) {
+    if (window.scrollY > 100) {
       this.fixedToolbar = true;
     } else {
       this.fixedToolbar = false;

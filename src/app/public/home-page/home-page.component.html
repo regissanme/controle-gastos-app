@@ -1,45 +1,34 @@
-<nav (scroll)="onScroll()" [class]="fixedToolbar?'fixed':'nofixed'">
-
-  <mat-toolbar [color]="fixedToolbar?'primary':''" class="mat-elevation-z3">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>CGA</span>
-    <span class="home-spacer"></span>
-    <a mat-raised-button color="primary" routerLink="/login" routerLinkActive="activebutton"
-      ariaCurrentWhenActive="page">
-      Login
-    </a> &nbsp;
-    <a mat-raised-button color="accent" routerLink="/register" routerLinkActive="activebutton"
-      ariaCurrentWhenActive="page">
-      Cadastro
-    </a>
-
-  </mat-toolbar>
-
-</nav>
+<!-- navigation -->
+<mat-toolbar color="primary" (onscroll)="onScroll()" [class]="[fixedToolbar?'fixed':'nofixed', 'mat-elevation-z3']">
+  <img src="/assets/coins_81691-128.png" alt="">
+  <span>Meu Saldo</span>
+  <div class="home-spacer"></div>
+  <a mat-raised-button routerLink="/login">Entrar</a>
+  <a mat-raised-button routerLink="/register">Cadastrar</a>
+</mat-toolbar>
 
 <!-- header section -->
-<section class="py-5 py-md-7" id="home">
+<!-- <section class="py-5 py-md-7" id="home"> -->
+<section class="py-5" id="home">
   <div class="container">
     <div class="row">
       <div class="col-md-6 my-md-auto mb-5 mb-md-0 text-center text-md-left">
-        <span class="text-uppercase text-muted small-xl">Controle de Gastos Pessoais</span>
+        <span class="text-uppercase">
+          <h3> <b>Meu Saldo</b></h3>
+        </span>
+        <span class="text-uppercase ">Controle de Gastos Pessoais</span>
         <h1 class="display-4 mt-2 mb-5">A maneira mais rápida e fácil de gerenciar seus gastos.</h1>
         <a href="#" class="btn btn-primary d-inline-flex flex-row align-items-center">
           <em data-feather="shopping-bag" width="20" height="20" class="mr-2"></em>
           Totalmente Grátis!
         </a>
-        <a href="#" class="btn btn-secondary d-md-inline-flex flex-row align-items-center d-none show-video">
+        <a href="#" class="btn btn-success d-inline-flex flex-row align-items-center">
           <em data-feather="play" width="20" height="20" class="mr-2"></em>
           Faça um teste agora
         </a>
       </div>
       <div class="col-md-6 play-wrapper">
-        <img src="img/macbook.png" class="img-fluid d-block mx-auto" alt="MacBook" />
-        <div class="play d-flex flex-row align-item-center show-video">
-          <em class="icon" data-feather="play"></em>
-        </div>
+        <img src="/assets/graph-clipart-clipart-graph.png" class="img-fluid d-block mx-auto" alt="MacBook" />
       </div>
     </div>
   </div>
@@ -156,13 +145,13 @@
         <a href="#" class="btn btn-primary">Veja Mais</a>
       </div>
       <div class="col-md-6 order-1 order-md-2">
-        <img src="img/imac.png" class="img-fluid d-block mx-auto" alt="iMac" />
+        <img src="/assets/graph-clipart-clipart-graph.png" class="img-fluid d-block mx-auto" alt="iMac" />
       </div>
     </div>
 
     <div class="row mt-7">
       <div class="col-md-6">
-        <img src="img/macbook.png" class="img-fluid d-block mx-auto" alt="MacBook" />
+        <img src="/assets/graph-clipart-clipart-graph.png" class="img-fluid d-block mx-auto" alt="MacBook" />
       </div>
       <div class="col-md-6 my-md-auto">
         <h3>Gráfico Anual.</h3>
@@ -205,7 +194,7 @@
             <div class="card">
               <div class="card-body text-center">
                 <p class="h1 text-white">Grátis!</p>
-                <p class="text-light">Para Você</p>
+                <p class="h4 text-white">Para Você</p>
               </div>
             </div>
           </div>
@@ -260,7 +249,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4 my-auto text-center text-md-left">
-        &copy;2023 Controle de Gastos Pessoais.
+        &copy;2024 - Meu Saldo
       </div>
       <div class="col-md-4 text-center">
         <ul class="list-inline social social-white-alt social-rounded social-sm mb-0">
@@ -299,4 +288,3 @@
 <div class="scroll-top">
   <i class="fa fa-angle-up" aria-hidden="true"></i>
 </div>
-
