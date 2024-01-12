@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, computed, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../../shared/models/user';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 export type MenuItem = {
   icon: string;
@@ -51,14 +51,24 @@ export class CustomSidenavComponent {
       route: 'dashboard'
     },
     {
-      icon: 'analytics',
+      icon: 'move_to_inbox',
       label: 'Receitas',
-      route: 'content'
+      route: 'income'
     },
     {
-      icon: 'analytics',
+      icon: 'outbox',
       label: 'Despesas',
-      route: 'analytcs'
+      route: 'expenses'
+    },
+    {
+      icon: 'account_box',
+      label: 'Perfil',
+      route: 'profile'
+    },
+    {
+      icon: 'chat_info',
+      label: 'Suporte',
+      route: 'support'
     },
 
   ]);
