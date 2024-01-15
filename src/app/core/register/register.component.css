@@ -10,8 +10,9 @@
   height: 100%;
   width: 100%;
   /* background: #00796B; */
-  background: #2196F3;
+  /* background: #2196F3; */
   /* background: #4b0082; */
+  background: var(--pale);
 }
 
 .container {
