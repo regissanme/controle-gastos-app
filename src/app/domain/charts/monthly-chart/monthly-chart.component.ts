@@ -6,10 +6,10 @@ import { NgChartsModule } from 'ng2-charts';
   selector: 'app-monthly-char',
   standalone: true,
   imports: [NgChartsModule],
-  templateUrl: './monthly-char.component.html',
-  styleUrls: ['./monthly-char.component.css']
+  templateUrl: './monthly-chart.component.html',
+  styleUrls: ['./monthly-chart.component.css']
 })
-export class MonthlyCharComponent {
+export class MonthlyChartComponent {
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
