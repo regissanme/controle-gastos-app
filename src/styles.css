@@ -7,4 +7,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   --pale: #DDE8BE;
   --sage: #BFCC98;
   --middle-green-dark: #63734A;
+  --button-primary: #AC5D5D;
+  --button-primary-hover: #e09c9a;
+  --button-secondary: #6002EE;
+  --button-secondary-hover: #b794f6;
+  --button-white: #fff;
+  --button-white-hover: #dbdbdb;
 }
