@@ -3,7 +3,7 @@ import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 
 @Component({
-  selector: 'app-monthly-char',
+  selector: 'app-monthly-chart',
   standalone: true,
   imports: [NgChartsModule],
   templateUrl: './monthly-chart.component.html',

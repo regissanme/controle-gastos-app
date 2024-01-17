@@ -4,25 +4,38 @@
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
 
     <!--Mini Cards-->
-    <mat-grid-tile *ngFor="let i of [1, 2, 3, 4]" [colspan]="( cardLayout | async )?.miniCard?.cols"
+    <mat-grid-tile *ngFor="let i of [1, 2, 3]" [colspan]="( cardLayout | async )?.miniCard?.cols"
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+      <app-dashboard-mini-card >
+      </app-dashboard-mini-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile *ngFor="let i of [4]" [colspan]="( cardLayout | async )?.miniCard?.cols"
       [rowspan]="( cardLayout | async )?.miniCard?.rows">
       <app-dashboard-card title="Resumo {{i}}">
-        <div>Mini Card Content Here</div>
+        <app-test></app-test>
+      </app-dashboard-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile *ngFor="let i of [5]" [colspan]="( cardLayout | async )?.chart?.cols"
+      [rowspan]="( cardLayout | async )?.chart?.rows">
+      <app-dashboard-card title="Gráfico {{i}}">
+        <app-test></app-test>
       </app-dashboard-card>
     </mat-grid-tile>
 
     <!--Charts-->
-    <mat-grid-tile *ngFor="let i of [5, 6, 7, 8]" [colspan]="( cardLayout | async )?.chart?.cols"
+    <mat-grid-tile *ngFor="let i of [6, 7, 8, 9]" [colspan]="( cardLayout | async )?.chart?.cols"
       [rowspan]="( cardLayout | async )?.chart?.rows">
       <app-dashboard-card title="Gráfico {{i}}">
-        <app-monthly-char></app-monthly-char>
+        <app-monthly-chart></app-monthly-chart>
       </app-dashboard-card>
     </mat-grid-tile>
 
     <!--Table-->
     <mat-grid-tile [colspan]="( cardLayout | async )?.table?.cols" [rowspan]="( cardLayout | async )?.table?.rows">
       <app-dashboard-card title="Lançamentos">
-        <div>Table Content Here</div>
+        <app-expenses-table></app-expenses-table>
       </app-dashboard-card>
     </mat-grid-tile>
   </mat-grid-list>
