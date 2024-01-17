@@ -9,9 +9,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { map } from 'rxjs/operators';
 import { MonthlyChartComponent } from '../../charts/monthly-chart/monthly-chart.component';
 import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
-import { DashboardMiniCardComponent } from '../../components/dashboard-mini-card/dashboard-mini-card.component';
+import { DashboardHeaderCardComponent } from '../../components/dashboard-header-card/dashboard-header-card.component';
 import { ExpensesTableComponent } from '../../components/expenses-table/expenses-table.component';
-import { TestComponent } from '../../../mocks/test/test.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,18 +18,17 @@ import { TestComponent } from '../../../mocks/test/test.component';
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
   imports: [
-    CommonModule,
-    AsyncPipe,
-    MatGridListModule,
-    MatMenuModule,
-    MatIconModule,
+    CommonModule, AsyncPipe,
     MatButtonModule,
     MatCardModule,
+    MatIconModule,
+    MatGridListModule,
+    MatMenuModule,
+
     DashboardCardComponent,
-    DashboardMiniCardComponent,
-    MonthlyChartComponent,
+    DashboardHeaderCardComponent,
     ExpensesTableComponent,
-    TestComponent
+    MonthlyChartComponent,
   ]
 })
 export class DashboardComponent {
@@ -49,7 +47,7 @@ export class DashboardComponent {
 
       return {
         columns: 4,
-        miniCard: { cols: 2, rows: 1 },
+        miniCard: { cols: 1, rows: 1 },
         chart: { cols: 2, rows: 2 },
         table: { cols: 4, rows: 4 },
       };
