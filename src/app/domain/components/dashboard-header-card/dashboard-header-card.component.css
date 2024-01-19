@@ -18,7 +18,6 @@
 
 .card {
   margin-top: 1.1rem;
-  background: linear-gradient(#914e4e, #610d0d);
   padding: 1rem;
   border-radius: 12px;
   color: white;
@@ -65,10 +64,23 @@
   font-weight: 600;
   margin-bottom: 10px;
   text-shadow: 1px 1px 4px #000000;
+
+  small {
+    font-size: 1.3rem;
+  }
 }
 
-.card-content .value small {
-  font-size: 1.3rem;
+.card-content .value-negative {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: red;
+  text-shadow: 1px 1px 4px #000000;
+
+  small {
+    font-size: 1.3rem;
+    color: white;
+  }
 }
 
 .card-content .content-icon {
@@ -105,4 +117,115 @@
 .nav-button:hover {
   background-color: var(--button-secondary-hover);
   color: white;
+}
+
+.gradient-purple {
+  background: #7873f5 !important;
+  background: -webkit-linear-gradient(50deg, #ff6ec4, #7873f5) !important;
+  background: -o-linear-gradient(50deg, #ff6ec4, #7873f5) !important;
+  background: linear-gradient(50deg, #ff6ec4, #7873f5) !important;
+  color: #fff !important;
+}
+
+.gradient-indigo {
+  background: #303f9f !important;
+  background: -webkit-linear-gradient(50deg, #2ec6ff, #303f9f) !important;
+  background: -o-linear-gradient(50deg, #2ec6ff, #303f9f) !important;
+  background: linear-gradient(50deg, #2ec6ff, #303f9f) !important;
+  color: #fff !important;
+}
+
+.gradient-blue {
+  background: #2196F3 !important;
+  background: -webkit-linear-gradient(50deg, #37ffb5, #2196F3) !important;
+  background: -o-linear-gradient(50deg, #37ffb5, #2196F3) !important;
+  background: linear-gradient(50deg, #37ffb5, #2196F3) !important;
+  color: #fff !important;
+}
+
+.gradient-orange {
+  background: #FF7043 !important;
+  background: -webkit-linear-gradient(50deg, #ffd86f, #FF7043) !important;
+  background: -o-linear-gradient(50deg, #ffd86f, #FF7043) !important;
+  background: linear-gradient(50deg, #ffd86f, #FF7043) !important;
+  color: #fff !important;
+}
+
+.gradient-green {
+  background: #2E7D32 !important;
+  background: -webkit-linear-gradient(50deg, #C5D429, #2E7D32) !important;
+  background: -o-linear-gradient(50deg, #C5D429, #2E7D32) !important;
+  background: linear-gradient(50deg, #C5D429, #2E7D32) !important;
+  color: #fff !important;
+}
+
+.gradient-pink {
+  background: #E91E63 !important;
+  background: -webkit-linear-gradient(50deg, #F59E99, #E91E63) !important;
+  background: -o-linear-gradient(50deg, #F59E99, #E91E63) !important;
+  background: linear-gradient(50deg, #F59E99, #E91E63) !important;
+  color: #fff !important;
+}
+
+.gradient-red {
+  background: #D50000 !important;
+  background: -webkit-linear-gradient(50deg, #FF9E80, #D50000) !important;
+  background: -o-linear-gradient(50deg, #FF9E80, #D50000) !important;
+  background: linear-gradient(50deg, #FF9E80, #D50000) !important;
+  color: #fff !important;
+}
+
+.gradient-amber {
+  background: #e65100 !important;
+  background: -webkit-linear-gradient(50deg, #FFBA3A, #e65100) !important;
+  background: -o-linear-gradient(50deg, #FFBA3A, #e65100) !important;
+  background: linear-gradient(50deg, #FFBA3A, #e65100) !important;
+  color: #fff !important;
+}
+
+.gradient-gray {
+  background: #263238 !important;
+  background: -webkit-linear-gradient(50deg, #8EF9FE, #263238) !important;
+  background: -o-linear-gradient(50deg, #8EF9FE, #263238) !important;
+  background: linear-gradient(50deg, #8EF9FE, #263238) !important;
+  color: #fff !important;
+}
+
+.gradient-teal {
+  background: #00796B !important;
+  background: -webkit-linear-gradient(50deg, #A9DC7B, #00796B) !important;
+  background: -o-linear-gradient(50deg, #A9DC7B, #00796B) !important;
+  background: linear-gradient(50deg, #A9DC7B, #00796B) !important;
+  color: #fff !important;
+}
+
+.gradient-brown {
+  background: #5D4037 !important;
+  background: -webkit-linear-gradient(50deg, #FA9151, #5D4037) !important;
+  background: -o-linear-gradient(50deg, #FA9151, #5D4037) !important;
+  background: linear-gradient(50deg, #FA9151, #5D4037) !important;
+  color: #fff !important;
+}
+
+.gradient-lime {
+  background: #827717 !important;
+  background: -webkit-linear-gradient(50deg, #FDD819, #827717) !important;
+  background: -o-linear-gradient(50deg, #FDD819, #827717) !important;
+  background: linear-gradient(50deg, #FDD819, #827717) !important;
+  color: #fff !important;
+}
+
+.gradient-totals {
+  background: rgb(1, 33, 105);
+  background: linear-gradient(90deg, rgba(1, 33, 105, 1) 0%, rgba(0, 48, 143, 1) 35%, rgba(0, 127, 255, 1) 100%);
+}
+
+.gradient-expenses {
+  background: rgb(102, 0, 0);
+  background: linear-gradient(90deg, rgba(102, 0, 0, 1) 0%, rgba(196, 30, 58, 1) 35%, rgba(226, 88, 34, 1) 100%);
+}
+
+.gradient-income {
+  background: rgb(0, 86, 59);
+  background: linear-gradient(90deg, rgba(0, 86, 59, 1) 0%, rgba(1, 135, 73, 1) 35%, rgba(80, 200, 120, 1) 100%);
 }

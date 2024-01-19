@@ -1,23 +1,28 @@
 <div class="dashboard-card">
   <div class="dashboard-card-content">
-    <div class="card">
+    <div class="card" [class]="backgroundTheme">
+      <!-- [class.hide-header-text]= -->
       <div class="card-content">
         <div class="left">
           <span class="title">
-            <h2>Despesas</h2>
+            <h2> {{ dataCard().type }} </h2>
           </span>
-          <span class="value"><small>R$</small> 99.999,99</span>
+          <span [class]="valueTheme"><small>R$</small> {{ dataCard().value | number:'1.2' }} </span>
         </div>
         <div class="content-icon">
-          <mat-icon>payments</mat-icon>
+          <mat-icon> {{ iconName }} </mat-icon>
         </div>
       </div>
       <div class="card-actions">
-        <button mat-mini-fab class="add-button" matTooltip="Nova Despesas" aria-label="Nova Despesa">
+        @if((dataCard().type === 'saldo')){
+          &nbsp;
+        } @else {
+        <button mat-mini-fab class="add-button" [matTooltip]="dataCard().new" aria-label="Botão de novo valor">
           <mat-icon>add</mat-icon>
         </button>
-        <button mat-button class="nav-button" matTooltip="Ir para Despesas">
-          Ir para as Despesas
+      }
+        <button mat-button class="nav-button" [matTooltip]="dataCard().tip" [routerLink]="dataCard().route">
+          {{dataCard().tip}}
         </button>
       </div>
     </div>
