@@ -4,9 +4,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { StorageService } from '../storage/storage.service';
-import { UserService } from '../auth/user.service';
 import { Register } from '../../shared/models/register';
+import { UserService } from '../auth/user.service';
 
 @Component({
   selector: 'app-register',
@@ -34,7 +33,6 @@ export class RegisterComponent {
 
   constructor(
     private userService: UserService,
-    private storageService: StorageService
   ) { }
 
 
@@ -46,7 +44,6 @@ export class RegisterComponent {
       this.userService.register(user).subscribe({
         next: data => {
           console.log('Received data: ' + JSON.stringify(data));
-          this.storageService.setUser(data);
           this.isRegistered = true;
           this.isRegisterFailed = false;
         },

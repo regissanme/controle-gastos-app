@@ -6,6 +6,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../../shared/models/user';
+import { AuthService } from './../../../core/auth/auth.service';
+import { SidenavService } from './sidenav.service';
 
 export type MenuItem = {
   icon: string;
@@ -25,17 +27,10 @@ export type MenuItem = {
 })
 export class CustomSidenavComponent {
 
-  user: User = {
-    name: 'Reginaldo Santos de Medeiros',
-    active: true,
-    username: 'teste@email.com',
-    birthdate: '1978-11-14',
-    role: 'Admin',
-    lastAccessAt: '',
-    token: '',
-    id: ''
-  };
   sidenavCollapsed = signal(false);
+  menuItems = signal<MenuItem[]>([]);
+  profilePicSize = computed(() => this.sidenavCollapsed() ? '32' : '100');
+  user: User;
 
   @Input() set collapsed(val: boolean) {
     this.sidenavCollapsed.set(val);
@@ -44,39 +39,28 @@ export class CustomSidenavComponent {
     this.user = user;
   }
 
-  menuItems = signal<MenuItem[]>([
-    {
-      icon: 'dashboard',
-      label: 'Dashboard',
-      route: 'dashboard'
-    },
-    {
-      icon: 'move_to_inbox',
-      label: 'Receitas',
-      route: 'income'
-    },
-    {
-      icon: 'outbox',
-      label: 'Despesas',
-      route: 'expenses'
-    },
-    {
-      icon: 'account_box',
-      label: 'Perfil',
-      route: 'profile'
-    },
-    {
-      icon: 'chat_info',
-      label: 'Suporte',
-      route: 'support'
-    },
+  constructor(
+    private sidenavService: SidenavService,
+    private authService: AuthService
+  ) {
+    this.menuItems.set(sidenavService.getSidenavItems());
+    this.user = authService.getUser();
+  }
 
-  ]);
-
-  profilePicSize = computed(() => this.sidenavCollapsed() ? '32' : '100');
 
   getSymbol(): string {
     return this.user ? this.user.name.toLocaleUpperCase().charAt(0) : 'R';
   }
+
+  // user: User = {
+  //   name: 'Reginaldo Santos de Medeiros',
+  //   active: true,
+  //   username: 'teste@email.com',
+  //   birthdate: '1978-11-14',
+  //   role: 'Admin',
+  //   lastAccessAt: '',
+  //   token: '',
+  //   id: ''
+  // };
 
 }

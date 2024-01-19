@@ -4,12 +4,21 @@
   </button>
   <!-- <img [width]="profilePicSize()" [height]="profilePicSize()" src="/assets/images/profile-me.jpg"> -->
   <div class="header-text" [class.hide-header-text]="sidenavCollapsed()">
+    @if(user){
     <h2> {{ user.name }}</h2>
     <p>{{ user.role }}</p>
+    }
+    @else {
+    <h2> Meu Saldo </h2>
+    <p>Best</p>
+    }
+
   </div>
 </div>
 <mat-nav-list>
-  <a mat-list-item class="menu-item" *ngFor="let item of menuItems()" [routerLink]="item.route"
+
+  @for (item of menuItems(); track item) {
+  <a mat-list-item class="menu-item" [routerLink]="item.route"
     routerLinkActive="selected-menu-item" #rla="routerLinkActive" [activated]="rla.isActive" [matTooltip]="item.label"
     matTooltipPosition="after">
 
@@ -21,4 +30,5 @@
     <span matListItemTitle> {{ item.label }} </span>
     }
   </a>
+  }
 </mat-nav-list>

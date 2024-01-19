@@ -5,7 +5,6 @@ import { FormBuilder, FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { StorageService } from '../storage/storage.service';
 
 
 @Component({
@@ -27,11 +26,10 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  role: string = '';
+  role: string | undefined;
 
   constructor(
     private authService: AuthService,
-    private storageService: StorageService,
     private fb: FormBuilder,
     private router: Router
   ) { }
@@ -39,8 +37,8 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('login on init - logged in: ', this.storageService.isLoggedIn());
-    if (this.storageService.isLoggedIn()) {
+    console.log('login on init - logged in: ', this.authService.isLoggedIn());
+    if (this.authService.isLoggedIn()) {
       this.navigateToDashboard();
     }
   }
@@ -53,11 +51,13 @@ export class LoginComponent implements OnInit {
       this.authService.login(username, password).subscribe({
         next: data => {
           console.log('Received data: ' + JSON.stringify(data));
-          this.storageService.setUser(data);
+          this.authService.setUser(data);
 
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.role = this.storageService.getUser().role;
+
+          this.role = this.authService.currentUserSig()?.role;
+
           this.navigateToDashboard();
         },
         error: err => {
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
   }
 
   navigateToDashboard() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/app']);
   }
 
 }
