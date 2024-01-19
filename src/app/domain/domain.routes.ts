@@ -11,6 +11,7 @@ export const DOMAIN_ROUTES: Routes = [
     children: [
       { path: '',   redirectTo: '/app/dashboard', pathMatch: 'full' },
       { path: 'dashboard', loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent) },
+      { path: 'expenses', loadComponent: () => import('./components/expenses/expense/expense.component').then(m => m.ExpenseComponent) },
 
     ],
   },

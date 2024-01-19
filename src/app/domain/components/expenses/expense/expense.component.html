@@ -1,0 +1,7 @@
+<h1>Despesas</h1>
+
+<h2>Categorias</h2>
+
+@for (category of expenseCategories$ | async; track category) {
+  {{ category.descricao }}
+}
