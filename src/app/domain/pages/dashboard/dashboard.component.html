@@ -1,26 +1,34 @@
-<!--dash.component.html-->
 <div class="grid-container">
   <h1 class="mat-h1">Painel</h1>
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
 
     <!--Mini Cards-->
-    <mat-grid-tile *ngFor="let i of [1,2,3,4]" [colspan]="( cardLayout | async )?.miniCard?.cols"
-      [rowspan]="( cardLayout | async )?.miniCard?.rows">
-      <app-dashboard-header-card></app-dashboard-header-card>
+    @for (data of totals(); track data) {
+    <mat-grid-tile
+     [colspan]="( cardLayout | async )?.miniCard?.cols"
+      [rowspan]="( cardLayout | async )?.miniCard?.rows"
+    >
+      <app-dashboard-header-card [data]="data" />
     </mat-grid-tile>
+    }
+
 
     <!--Charts-->
-    <mat-grid-tile *ngFor="let i of [5,6, 7, 8]" [colspan]="( cardLayout | async )?.chart?.cols"
-      [rowspan]="( cardLayout | async )?.chart?.rows">
+    @for (i of [1,2]; track i) {
+    <mat-grid-tile
+     [colspan]="( cardLayout | async )?.chart?.cols"
+     [rowspan]="( cardLayout | async )?.chart?.rows"
+    >
       <app-dashboard-card title="Gráfico {{i}}">
         <app-monthly-chart></app-monthly-chart>
       </app-dashboard-card>
     </mat-grid-tile>
+    }
 
     <!--Table-->
     <mat-grid-tile [colspan]="( cardLayout | async )?.table?.cols" [rowspan]="( cardLayout | async )?.table?.rows">
       <app-dashboard-card title="Lançamentos">
-        <app-expenses-table></app-expenses-table>
+        <span>Conteúdo da Tabela aqui</span>
       </app-dashboard-card>
     </mat-grid-tile>
   </mat-grid-list>
