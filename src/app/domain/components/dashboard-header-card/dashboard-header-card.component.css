@@ -111,7 +111,7 @@
 
 .nav-button {
   background-color: var(--button-white);
-  color: white;
+  color: #000;
 }
 
 .nav-button:hover {

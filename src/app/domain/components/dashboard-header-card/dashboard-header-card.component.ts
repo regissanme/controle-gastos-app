@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { CardHeaderData } from './../../../shared/models/card-header-data';
+import { CardHeaderData } from '../../models/card-header-data';
 import { DecimalPipe } from '@angular/common';
 
 @Component({
