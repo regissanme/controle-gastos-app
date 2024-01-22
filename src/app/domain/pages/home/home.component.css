@@ -6,6 +6,17 @@ mat-toolbar {
 position: relative;
 z-index: 5;
 background: var(--middle-green-dark);
+color: white;
+}
+
+mat-toolbar span {
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-left: 5px;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }
 
 .content{
@@ -15,4 +26,8 @@ background: var(--middle-green-dark);
 mat-sidenav,
 mat-sidenav-content {
   transition: all 500ms ease-in-out;
+}
+
+button:hover {
+  background-color: #99af76;
 }

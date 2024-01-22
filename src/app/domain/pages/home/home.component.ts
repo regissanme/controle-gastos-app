@@ -39,5 +39,9 @@ export class HomeComponent {
 
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
+
 
 }
