@@ -1,25 +1,76 @@
-import { Component, inject } from '@angular/core';
-import { ExpenseCategoryService } from '../../../services/expense-category.service';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { Expense } from '../../../models/expense';
 import { ExpenseCategory } from '../../../models/expense-category';
-import { AsyncPipe } from '@angular/common';
+import { ExpenseType } from '../../../models/expense-type';
+import { PaymentType } from '../../../models/payment-type';
+import { ExpenseCategoryService } from '../../../services/expense-category.service';
+import { ExpensesService } from '../../../services/expenses.service';
+import { PaymentService } from '../../../services/payment.service';
+
 
 @Component({
   selector: 'app-expense',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [CommonModule, ReactiveFormsModule,
+    MatSelectModule, MatInputModule, MatIconModule, MatCardModule, MatButtonModule
+  ],
   templateUrl: './expense.component.html',
   styleUrl: './expense.component.css'
 })
 export class ExpenseComponent {
 
-  //expenseCategoryService = inject(ExpenseCategoryService);
+  expenseForm = this.fb.group({
+    id: [0],
+    mes: ['', Validators.required],
+    valor: [0, Validators.required],
+    descricao: [''],
+    tipoPagamentoId: [0, Validators.required],
+    tipoDespesaId: [0, Validators.required],
+    userId: [0]
+  });
 
   expenseCategories$: Observable<ExpenseCategory[]>;
+  payment$: Observable<PaymentType[]>;
+  selectedCategory = new FormControl<ExpenseCategory | null>(null);
+  expensesTypes = new FormControl<ExpenseType[] | null>(null, Validators.required);
 
-  constructor(private expenseCategoryService: ExpenseCategoryService) {
+
+  constructor(
+    private authService: AuthService,
+    private expenseService: ExpensesService,
+    private expenseCategoryService: ExpenseCategoryService,
+    private paymentService: PaymentService,
+    private fb: FormBuilder,
+  ) {
     this.expenseCategories$ = expenseCategoryService.getAll();
+    this.payment$ = paymentService.getAll();
   }
+
+  get(value: string) {
+    return this.expenseForm.get(value)?.value;
+  }
+
+  onSubmit() {
+
+    if (this.expenseForm.valid) {
+      const expense: Expense = this.expenseForm.value as Expense;
+      console.log("Para salvar: ", JSON.stringify(expense));
+    } else {
+      this.expenseForm.markAllAsTouched();
+      this.expenseForm.markAsTouched();
+      console.log("Formulário inválido ou usuário não logado!")
+    }
+  }
+
 
 
 }

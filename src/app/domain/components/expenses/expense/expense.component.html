@@ -1,7 +1,73 @@
 <h1>Despesas</h1>
 
-<h2>Categorias</h2>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Despesa</mat-card-title>
+  </mat-card-header>
 
-@for (category of expenseCategories$ | async; track category) {
-  {{ category.descricao }}
-}
+  <mat-card-content>
+    <form class="form" [formGroup]="expenseForm" name="form" (ngSubmit)="onSubmit()" novalidate>
+
+      <mat-form-field class="input-area" appearance="outline">
+        <mat-label>Data</mat-label>
+        <input matInput type="date" formControlName="mes" name="mes" required>
+        <mat-error>A Data é obrigatória</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input-area" appearance="outline">
+        <mat-label>Valor</mat-label>
+        <input matInput type="number" formControlName="valor" name="valor" #valor required>
+        <mat-error>Valor é obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input-area" appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <input matInput type="text" formControlName="descricao" name="descricao">
+      </mat-form-field>
+
+      <mat-form-field class="input-area" appearance="outline">
+        <mat-label>Pagamento</mat-label>
+        <mat-select formControlName="tipoPagamentoId" name="pagamento" required>
+          <mat-option>--</mat-option>
+          @for (payment of payment$ | async; track payment) {
+          <mat-option [value]="payment.id">{{payment.tipo}}</mat-option>
+          }
+        </mat-select>
+        <mat-error>O Tipo é obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input-area" appearance="outline">
+        <mat-label>Categoria</mat-label>
+        <mat-select [formControl]="selectedCategory" name="categoria" required>
+          <mat-option>--</mat-option>
+          @for (categoria of expenseCategories$ | async; track categoria) {
+          <mat-option [value]="categoria">{{categoria.descricao}}</mat-option>
+          }
+        </mat-select>
+        @if (selectedCategory.hasError('required')) {
+        <mat-error>Selecione uma categoria</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="input-area" appearance="outline">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="tipoDespesaId" name="tipo" required>
+          <mat-option>--</mat-option>
+          @for (tipo of selectedCategory.value?.tiposDespesas; track tipo) {
+          <mat-option [value]="tipo.id">{{tipo.descricao}}</mat-option>
+          }
+        </mat-select>
+        <mat-error>O Tipo é obrigatório</mat-error>
+      </mat-form-field>
+
+
+
+    </form>
+    <p>Despesa: valid: {{ expenseForm.valid }} : {{ expenseForm.value | json}}</p>
+    <p>Categoria: {{ selectedCategory.value| json}} :::::: Tipo: {{ expenseForm.value.tipoDespesaId }}</p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-raised-button color="primary">Salvar</button>
+    <button mat-raised-button color="warn" >Cancelar</button>
+  </mat-card-actions>
+</mat-card>
