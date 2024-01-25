@@ -67,7 +67,7 @@
     <p>Categoria: {{ selectedCategory.value| json}} :::::: Tipo: {{ expenseForm.value.tipoDespesaId }}</p>
   </mat-card-content>
   <mat-card-actions align="end">
-    <button mat-raised-button color="primary">Salvar</button>
-    <button mat-raised-button color="warn" >Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Salvar</button>
+    <button mat-raised-button color="warn" (click)="resetForm()">Cancelar</button>
   </mat-card-actions>
 </mat-card>

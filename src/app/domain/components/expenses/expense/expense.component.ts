@@ -61,9 +61,30 @@ export class ExpenseComponent {
 
   onSubmit() {
 
-    if (this.expenseForm.valid) {
+    if (this.expenseForm.valid && this.authService.isLoggedIn()) {
+
       const expense: Expense = this.expenseForm.value as Expense;
-      console.log("Para salvar: ", JSON.stringify(expense));
+      let userId = this.authService.currentUserSig()?.id;
+
+      if (userId && userId != '') {
+        expense.userId = +userId
+        console.log(`saveExpense(${userId}):`);
+      } else {
+        console.log("Não possui usuário logado!");
+        return;
+      }
+
+      console.log('Despesa para salvar: ', JSON.stringify(expense));
+
+      this.expenseService.create(expense).subscribe({
+        next: response => {
+          console.log("Despesa salva: " + JSON.stringify(response));
+        },
+        error: err => {
+          console.log("Erro ao salvar: " + JSON.stringify(err));
+          this.resetForm();
+        }
+      })
     } else {
       this.expenseForm.markAllAsTouched();
       this.expenseForm.markAsTouched();
@@ -72,5 +93,10 @@ export class ExpenseComponent {
   }
 
 
+  resetForm() {
+    this.expenseForm.reset();
+    this.selectedCategory.setValue(null);
+    // this.expenseForm.value.mes = new Date().toDateString();
+  }
 
 }

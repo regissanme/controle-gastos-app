@@ -9,7 +9,7 @@ import { Expense } from '../models/expense';
 })
 export class ExpensesService {
 
-  API_URL = "http://localhost:8080/api/v1/despesa/all";
+  API_URL = "http://localhost:8080/api/v1/despesa";
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -25,8 +25,19 @@ export class ExpensesService {
     console.log(`getAll(${userId}):`);
 
     return this.http.get<Expense[]>(
-      this.API_URL + `/${userId}`,
+      this.API_URL + `/all/${userId}`,
       this.httpOptions
+    );
+  }
+
+  create(expense: Expense): Observable<Expense> {
+
+    console.log("save(): " + JSON.stringify(expense));
+
+    return this.http.post<Expense>(
+      this.API_URL,
+      JSON.stringify(expense),
+      this.httpOptions,
     );
   }
 
