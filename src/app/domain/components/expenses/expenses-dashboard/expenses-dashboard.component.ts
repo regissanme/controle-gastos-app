@@ -7,13 +7,15 @@ import { CardHeaderData } from '../../../models/card-header-data';
 import { ExpensesService } from '../../../services/expenses.service';
 import { DashboardHeaderCardComponent } from '../../dashboard-header-card/dashboard-header-card.component';
 import { ExpenseComponent } from '../expense/expense.component';
+import { TestComponent } from '../../../../mocks/test/test.component';
+import { MonthSelectorComponent } from '../../month-selector/month-selector.component';
 
 @Component({
   selector: 'app-expenses-dashboard',
   standalone: true,
   imports: [CommonModule,
     MatGridListModule,
-    DashboardHeaderCardComponent, ExpenseComponent
+    DashboardHeaderCardComponent, ExpenseComponent, MonthSelectorComponent
   ],
   templateUrl: './expenses-dashboard.component.html',
   styleUrl: './expenses-dashboard.component.css',
@@ -40,6 +42,7 @@ export class ExpensesDashboardComponent {
         return {
           columns: 1,
           miniCard: { cols: 1, rows: 1 },
+          monthCard: { cols: 1, rows: 2 },
           chart: { cols: 1, rows: 2 },
           table: { cols: 1, rows: 4 },
         };
@@ -48,6 +51,7 @@ export class ExpensesDashboardComponent {
       return {
         columns: 12,
         miniCard: { cols: 4, rows: 1 },
+        monthCard: { cols: 8, rows: 1 },
         chart: { cols: 6, rows: 2 },
         table: { cols: 12, rows: 4 },
       };

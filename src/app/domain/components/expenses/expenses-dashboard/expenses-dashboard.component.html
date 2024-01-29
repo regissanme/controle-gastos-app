@@ -12,6 +12,13 @@
     </mat-grid-tile>
 
     <mat-grid-tile
+     [colspan]="( cardLayout | async )?.monthCard?.cols"
+      [rowspan]="( cardLayout | async )?.monthCard?.rows"
+    >
+      <app-month-selector></app-month-selector>
+    </mat-grid-tile>
+
+    <mat-grid-tile
      [colspan]="( cardLayout | async )?.table?.cols"
       [rowspan]="( cardLayout | async )?.table?.rows"
     >
