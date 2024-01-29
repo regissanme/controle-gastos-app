@@ -1,4 +1,3 @@
-<h1>Despesas</h1>
 
 <mat-card>
   <mat-card-header>
@@ -63,8 +62,8 @@
 
 
     </form>
-    <p>Despesa: valid: {{ expenseForm.valid }} : {{ expenseForm.value | json}}</p>
-    <p>Categoria: {{ selectedCategory.value| json}} :::::: Tipo: {{ expenseForm.value.tipoDespesaId }}</p>
+    <!-- <p>Despesa: valid: {{ expenseForm.valid }} : {{ expenseForm.value | json}}</p>
+    <p>Categoria: {{ selectedCategory.value| json}} :::::: Tipo: {{ expenseForm.value.tipoDespesaId }}</p> -->
   </mat-card-content>
   <mat-card-actions align="end">
     <button mat-raised-button color="primary" (click)="onSubmit()">Salvar</button>

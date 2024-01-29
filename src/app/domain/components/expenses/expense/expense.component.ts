@@ -79,6 +79,7 @@ export class ExpenseComponent {
       this.expenseService.create(expense).subscribe({
         next: response => {
           console.log("Despesa salva: " + JSON.stringify(response));
+          this.expenseService.updateTotals();
         },
         error: err => {
           console.log("Erro ao salvar: " + JSON.stringify(err));
