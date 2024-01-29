@@ -1,0 +1,25 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Painel</h1>
+  <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
+
+    <!--Header cards-->
+
+    <mat-grid-tile
+     [colspan]="( cardLayout | async )?.miniCard?.cols"
+      [rowspan]="( cardLayout | async )?.miniCard?.rows"
+    >
+      <app-dashboard-header-card [data]="expenseData()" [dataSig]="expenseData" />
+    </mat-grid-tile>
+
+    <mat-grid-tile
+     [colspan]="( cardLayout | async )?.table?.cols"
+      [rowspan]="( cardLayout | async )?.table?.rows"
+    >
+    <app-expense></app-expense>
+    </mat-grid-tile>
+
+
+
+
+  </mat-grid-list>
+</div>
