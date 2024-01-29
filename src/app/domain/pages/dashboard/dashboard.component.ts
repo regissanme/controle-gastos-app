@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -31,45 +31,74 @@ import { ExpensesService } from './../../services/expenses.service';
     MonthlyChartComponent,
   ]
 })
-export class DashboardComponent implements OnInit {
-
-  constructor(
-    private expensesService: ExpensesService
-  ) { }
-
-  ngOnInit(): void {
-    this.expensesService.getAll().subscribe({
-      next: data => {
-        console.log(data);
-      }
-    })
-  }
+export class DashboardComponent {
 
   private breakpointObserver = inject(BreakpointObserver);
+  private expensesService = inject(ExpensesService);
 
-  totals = signal<CardHeaderData[]>([
+  expenses = this.expensesService.expenses;
+  expenseTotals = this.expensesService.totalExpensesValue;
+
+  // Expenses Card header data
+  // expenseTotals = computed(() => this.expensesService.totalExpensesValues() ?? 0);
+  expenseData = signal<CardHeaderData>({
+    type: 'despesas',
+    value: this.expenseTotals(),
+    route: '/despesas',
+    new: 'Nova Despesa',
+    tip: 'Ir para Despesas'
+  });
+
+  // Income Card header data
+  incomeTotals = signal(0);
+  incomeData = signal<CardHeaderData>(
     {
       type: 'receitas',
-      value: '9900.00',
+      value: this.incomeTotals(),
       route: '/receitas',
       new: 'Nova Receita',
       tip: 'Ir para Receitas'
-    },
-    {
-      type: 'despesas',
-      value: '7500.00',
-      route: '/despesas',
-      new: 'Nova Despesa',
-      tip: 'Ir para Despesas'
-    },
+    }
+  );
+
+  // Balance Card header data
+  balance = computed(() => this.incomeTotals() - this.expenseTotals());
+  balanceData = signal<CardHeaderData>(
     {
       type: 'saldo',
-      value: '2400.00',
+      value: this.balance(),
       route: '/saldo',
       new: '',
       tip: 'Ir para o Saldo'
     }
-  ]);
+  );
+
+
+
+
+  // totals = signal<CardHeaderData[]>([
+  //   {
+  //     type: 'receitas',
+  //     value: 9900.00,
+  //     route: '/receitas',
+  //     new: 'Nova Receita',
+  //     tip: 'Ir para Receitas'
+  //   },
+  //   {
+  //     type: 'despesas',
+  //     value: this.expenseTotals(),
+  //     route: '/despesas',
+  //     new: 'Nova Despesa',
+  //     tip: 'Ir para Despesas'
+  //   },
+  //   {
+  //     type: 'saldo',
+  //     value: 2400.00,
+  //     route: '/saldo',
+  //     new: '',
+  //     tip: 'Ir para o Saldo'
+  //   }
+  // ]);
 
   cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {

@@ -2,15 +2,28 @@
   <h1 class="mat-h1">Painel</h1>
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
 
-    <!--Mini Cards-->
-    @for (data of totals(); track data) {
+    <!--Header cards-->
+
     <mat-grid-tile
      [colspan]="( cardLayout | async )?.miniCard?.cols"
       [rowspan]="( cardLayout | async )?.miniCard?.rows"
     >
-      <app-dashboard-header-card [data]="data" />
+      <app-dashboard-header-card [data]="incomeData()" />
     </mat-grid-tile>
-    }
+
+    <mat-grid-tile
+     [colspan]="( cardLayout | async )?.miniCard?.cols"
+      [rowspan]="( cardLayout | async )?.miniCard?.rows"
+    >
+      <app-dashboard-header-card [data]="expenseData()" [dataSig]="expenseData" />
+    </mat-grid-tile>
+
+    <mat-grid-tile
+     [colspan]="( cardLayout | async )?.miniCard?.cols"
+      [rowspan]="( cardLayout | async )?.miniCard?.rows"
+    >
+      <app-dashboard-header-card [data]="balanceData()" />
+    </mat-grid-tile>
 
 
     <!--Charts-->
