@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -25,8 +25,10 @@ export interface month {
 })
 export class MonthSelectorComponent {
 
-  monthControl = new FormControl('')
-  months = signal<month[]>([
+  @Output() monthEvent = new EventEmitter<number>();
+
+
+  months: month[]=[
     { index: 0, name: "JAN" },
     { index: 1, name: "FEV" },
     { index: 2, name: "MAR" },
@@ -39,7 +41,15 @@ export class MonthSelectorComponent {
     { index: 9, name: "OUT" },
     { index: 10, name: "NOV" },
     { index: 11, name: "DEZ" },
-  ]
-  );
+  ];
+
+  monthControl = new FormControl(this.months[0])
+
+  changeInToggleGroup(val: number) {
+    console.log(val);
+    this.monthEvent.emit(val);
+  }
 
 }
+
+
