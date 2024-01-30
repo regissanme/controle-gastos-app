@@ -74,6 +74,12 @@ export class LoginComponent implements OnInit {
 
     const errorFields = [] = [''];
 
+    if (err instanceof HttpErrorResponse) {
+      if (err.status === 0) {
+        this.errorMessage = "Incapaz de conectar ao Servidor";
+      }
+     }
+
     if (err.status === 403) {
       this.errorMessage = 'Email ou senha inválido(s)!';
     } else {

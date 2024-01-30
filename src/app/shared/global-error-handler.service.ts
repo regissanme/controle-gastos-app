@@ -1,16 +1,26 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalErrorHandlerService implements ErrorHandler {
 
-  constructor() { }
+  constructor(
+    private notificationService: NotificationService
+  ) { }
 
   handleError(err: HttpErrorResponse): void {
     let errorMessage = '';
     const errorFields = [] = [''];
+
+    if (err instanceof HttpErrorResponse) {
+      if (err.status === 0) {
+        errorMessage = "Incapaz de conectar ao Servidor";
+        console.error(errorMessage);
+      }
+     }
 
     if (err instanceof ErrorEvent) {
       console.log("ErrorEvent recebido!");
@@ -32,7 +42,12 @@ export class GlobalErrorHandlerService implements ErrorHandler {
 
 
     // TODO: Mostrar erro ao usuário
-    console.error(errorMessage);
+    // console.error(errorMessage);
+    this.showError(errorMessage);
+  }
+
+  showError(message: string) {
+    this.notificationService.error(message);
   }
 
   // HttpErrorResponse = {
