@@ -1,10 +1,13 @@
-import { CommonModule, DecimalPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
+import { ModalService } from '../../../shared/modal.service';
+import { NotificationService } from '../../../shared/notification.service';
 import { CardHeaderData } from '../../models/card-header-data';
+import { ExpenseComponent } from '../expenses/expense/expense.component';
 
 @Component({
   selector: 'app-dashboard-header-card',
@@ -17,6 +20,8 @@ import { CardHeaderData } from '../../models/card-header-data';
   styleUrl: './dashboard-header-card.component.css',
 })
 export class DashboardHeaderCardComponent {
+  notificationService = inject(NotificationService);
+  modalService = inject(ModalService);
 
   @Input() set data(data: CardHeaderData) {
     this.dataCard.set(data);
@@ -53,6 +58,12 @@ export class DashboardHeaderCardComponent {
       return 'gradient-income';
     } else {
       return 'gradient-totals';
+    }
+  }
+
+  openDialog() {
+    if (this.dataCard().type === 'despesas') {
+      this.modalService.showComponent(ExpenseComponent);
     }
   }
 

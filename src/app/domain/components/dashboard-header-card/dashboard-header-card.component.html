@@ -17,7 +17,7 @@
         @if((dataCard().type === 'saldo')){
           &nbsp;
         } @else {
-        <button mat-mini-fab class="add-button" [matTooltip]="dataCard().new" aria-label="Botão de novo valor">
+        <button mat-mini-fab class="add-button" (click)="openDialog()" [matTooltip]="dataCard().new" aria-label="Botão de novo valor">
           <mat-icon>add</mat-icon>
         </button>
       }

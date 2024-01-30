@@ -9,6 +9,9 @@ import {
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
+/*
+* Credits: https://stackblitz.com/edit/angular-material-notification-service?file=src%2Fapp%2Fnotification.service.ts
+*/
 @Injectable({
   providedIn: 'root'
 })
