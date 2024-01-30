@@ -27,7 +27,6 @@ export class MonthSelectorComponent {
 
   @Output() monthEvent = new EventEmitter<number>();
 
-
   months: month[]=[
     { index: 0, name: "JAN" },
     { index: 1, name: "FEV" },
@@ -43,10 +42,12 @@ export class MonthSelectorComponent {
     { index: 11, name: "DEZ" },
   ];
 
-  monthControl = new FormControl(this.months[0])
+  monthControl = new FormControl(this.months[0]);
+  selectedMonth = new Date("2024-11-14").getMonth();
 
-  changeInToggleGroup(val: number) {
-    console.log(val);
+  selectMonth(val: number) {
+    console.log("Emitindo Mês selecionado: ", val);
+    this.selectedMonth = val;
     this.monthEvent.emit(val);
   }
 

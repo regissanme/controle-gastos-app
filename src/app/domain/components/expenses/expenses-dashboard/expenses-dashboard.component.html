@@ -15,7 +15,7 @@
      [colspan]="( cardLayout | async )?.monthCard?.cols"
       [rowspan]="( cardLayout | async )?.monthCard?.rows"
     >
-      <app-month-selector></app-month-selector>
+      <app-month-selector (monthEvent)="selectMonth($event)"></app-month-selector>
     </mat-grid-tile>
 
     <mat-grid-tile

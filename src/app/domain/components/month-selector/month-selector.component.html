@@ -3,10 +3,18 @@
     <div class="month-container">
       <section>
         <h4>Escolha o mês:</h4>
-        <mat-button-toggle-group class="month-item" [formControl]="monthControl" (change)="changeInToggleGroup(monthGroup.value)" #monthGroup="matButtonToggleGroup" aria-label="Month">
+        <mat-button-toggle-group class="month-item"
+        [formControl]="monthControl"
+        (change)="selectMonth(monthGroup.value)"
+        #monthGroup="matButtonToggleGroup"
+        aria-label="Month">
+
           @for (item of months; track item) {
-          <mat-button-toggle [value]="item.index" [aria-label]="item.name"> {{ item.name }} </mat-button-toggle>
+          <mat-button-toggle [value]="item.index" [aria-label]="item.name" [checked]="item.index == selectedMonth">
+            {{ item.name }}
+          </mat-button-toggle>
           }
+
         </mat-button-toggle-group>
       </section>
     </div>

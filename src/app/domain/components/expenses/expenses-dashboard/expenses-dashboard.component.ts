@@ -27,6 +27,7 @@ export class ExpensesDashboardComponent {
   private expensesService = inject(ExpensesService);
 
   expenseTotals = this.expensesService.totalExpensesValue;
+  selectedMonth = 0;
 
   expenseData = signal<CardHeaderData>({
     type: 'despesas',
@@ -57,5 +58,12 @@ export class ExpensesDashboardComponent {
       };
     })
   );
+
+  selectMonth(month: number) {
+    console.log("Mês Selecionado anterior: ", this.selectedMonth);
+    this.selectedMonth = month;
+    console.log("Mês Selecionado atual: ", this.selectedMonth);
+
+  }
 
 }

@@ -52,5 +52,6 @@
   background-color: var(--button-primary-hover);
 }
 .mat-button-toggle-checked {
-  background-color:var(--button-primary);
+  background-color: blue;
+  color: white;
 }
