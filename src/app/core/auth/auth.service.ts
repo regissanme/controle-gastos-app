@@ -34,14 +34,13 @@ export class AuthService implements OnInit {
   }
 
   getUser() {
-    // JSON.parse(localStorage.getItem('user'))
-
     let storedUser = localStorage.getItem('user');
     if (storedUser) {
       this.currentUserSig.set(JSON.parse(storedUser));
       return JSON.parse(storedUser);
     }
     this.currentUserSig.set(null);
+    this.cleanStorage();
     return null;
   }
 
@@ -54,17 +53,6 @@ export class AuthService implements OnInit {
   cleanStorage() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-  }
-
-  isTokenExpired() {
-    let storedToken = localStorage.getItem('token');
-    if (storedToken && storedToken != '') {
-      // const expiry = (JSON.parse(atob(storedToken.split('.')[1]))).exp;
-      const expiry = (JSON.parse(storedToken.split('.')[1])).exp;
-      console.log("Token expiry: ", expiry)
-      return expiry * 1000 > Date.now();
-    }
-    return true;
   }
 
   login(username: string, password: string): Observable<any> {
