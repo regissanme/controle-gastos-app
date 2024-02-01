@@ -1,6 +1,7 @@
+import { TypesTotal } from './../../../../mocks/card-test/card-test.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { map } from 'rxjs';
 import { CardHeaderData } from '../../../models/card-header-data';
@@ -8,35 +9,30 @@ import { DashboardHeaderCardComponent } from '../../dashboard-header-card/dashbo
 import { MonthSelectorComponent } from '../../month-selector/month-selector.component';
 import { ExpenseComponent } from '../expense/expense.component';
 import { ExpensesService } from './../../../services/expenses.service';
+import { TotalsCardComponent } from '../../totals-card/totals-card.component';
+import { TypeCard } from '../../../models/type-card';
 
 @Component({
   selector: 'app-expenses-dashboard',
   standalone: true,
   imports: [CommonModule,
     MatGridListModule,
-    DashboardHeaderCardComponent, ExpenseComponent, MonthSelectorComponent
+    TotalsCardComponent, ExpenseComponent, MonthSelectorComponent
   ],
   templateUrl: './expenses-dashboard.component.html',
   styleUrl: './expenses-dashboard.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExpensesDashboardComponent {
+export class ExpensesDashboardComponent implements OnInit{
 
   private breakpointObserver = inject(BreakpointObserver);
   private expensesService = inject(ExpensesService);
 
-  expenses = this.expensesService.expenses;
-  expenseTotals = this.expensesService.totalExpensesValue;
+  expenseRoute = "app/expenses";
+  expenseTypeCard = TypeCard.Despesas;
+  expensesValue = this.expensesService.expensesSigTotals;
+  expenseQuantity = this.expensesService.expensesSigLength;
   selectedMonth = 0;
-
-
-  expenseData = signal<CardHeaderData>({
-    type: 'despesas',
-    value: this.expenseTotals(),
-    route: '/despesas',
-    new: 'Nova Despesa',
-    tip: 'Ir para Despesas'
-  });
 
   cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -59,6 +55,10 @@ export class ExpensesDashboardComponent {
       };
     })
   );
+
+  ngOnInit(): void {
+    this.expensesService.getAllExpenses();
+  }
 
   selectMonth(month: number) {
     console.log("Mês Selecionado anterior: ", this.selectedMonth);

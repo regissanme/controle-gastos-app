@@ -2,38 +2,21 @@
   <h1 class="mat-h1">Painel</h1>
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
 
-    <!--Header cards-->
-
+    <!--Total Card-->
     <mat-grid-tile
      [colspan]="( cardLayout | async )?.miniCard?.cols"
       [rowspan]="( cardLayout | async )?.miniCard?.rows"
     >
-      <app-dashboard-header-card [data]="expenseData()" [dataSig]="expenseData" />
+      <app-totals-card [type]="expenseTypeCard" [route]="expenseRoute" [value]="expensesValue()" [showRoute]="false" [quantity]="expenseQuantity()"/>
     </mat-grid-tile>
 
+    <!-- Select Month -->
     <mat-grid-tile
      [colspan]="( cardLayout | async )?.monthCard?.cols"
       [rowspan]="( cardLayout | async )?.monthCard?.rows"
     >
       <app-month-selector (monthEvent)="selectMonth($event)"></app-month-selector>
     </mat-grid-tile>
-
-    <mat-grid-tile
-     [colspan]="( cardLayout | async )?.monthCard?.cols"
-      [rowspan]="( cardLayout | async )?.monthCard?.rows"
-    >
-      <span> Quantidade de Despesas:  {{ expenses().length }} </span>
-    </mat-grid-tile>
-
-    <mat-grid-tile
-     [colspan]="( cardLayout | async )?.table?.cols"
-      [rowspan]="( cardLayout | async )?.table?.rows"
-    >
-    <app-expense></app-expense>
-    </mat-grid-tile>
-
-
-
 
   </mat-grid-list>
 </div>
