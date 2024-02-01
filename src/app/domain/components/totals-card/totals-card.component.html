@@ -1,0 +1,37 @@
+<div class="dashboard-card">
+  <div class="dashboard-card-content">
+    <div class="card" [class]="backgroundTheme">
+      <div class="card-content">
+        <div class="left">
+          <span class="title">
+            <h2> {{ type }}</h2>
+          </span>
+          <span [class]="valueTheme"><small>R$</small> {{ value | number:'1.2' }} </span>
+        </div>
+        <div class="content-icon">
+          <mat-icon> {{ iconName }} </mat-icon>
+        </div>
+      </div>
+      <div class="card-actions">
+        @if((type === 'Saldo')){
+        &nbsp;
+        } @else {
+        <button mat-mini-fab class="add-button" (click)="openDialog()" [matTooltip]="tip"
+          aria-label="Botão de novo valor">
+          <mat-icon>add</mat-icon>
+        </button>
+        }
+        @if(showRoute){
+        <button mat-button class="nav-button" [routerLink]="route">
+          Ver {{ type }}
+        </button>
+        } @else {
+        <div class="quantity">
+          {{ quantity }} &nbsp; {{ type }}
+        </div>
+        }
+
+      </div>
+    </div>
+  </div>
+</div>
