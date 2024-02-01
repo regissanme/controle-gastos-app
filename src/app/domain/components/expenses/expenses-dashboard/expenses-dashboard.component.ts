@@ -1,14 +1,13 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { map } from 'rxjs';
 import { CardHeaderData } from '../../../models/card-header-data';
-import { ExpensesService } from '../../../services/expenses.service';
 import { DashboardHeaderCardComponent } from '../../dashboard-header-card/dashboard-header-card.component';
-import { ExpenseComponent } from '../expense/expense.component';
-import { TestComponent } from '../../../../mocks/test/test.component';
 import { MonthSelectorComponent } from '../../month-selector/month-selector.component';
+import { ExpenseComponent } from '../expense/expense.component';
+import { ExpensesService } from './../../../services/expenses.service';
 
 @Component({
   selector: 'app-expenses-dashboard',
@@ -26,8 +25,10 @@ export class ExpensesDashboardComponent {
   private breakpointObserver = inject(BreakpointObserver);
   private expensesService = inject(ExpensesService);
 
+  expenses = this.expensesService.expenses;
   expenseTotals = this.expensesService.totalExpensesValue;
   selectedMonth = 0;
+
 
   expenseData = signal<CardHeaderData>({
     type: 'despesas',
@@ -63,7 +64,6 @@ export class ExpensesDashboardComponent {
     console.log("Mês Selecionado anterior: ", this.selectedMonth);
     this.selectedMonth = month;
     console.log("Mês Selecionado atual: ", this.selectedMonth);
-
   }
 
 }

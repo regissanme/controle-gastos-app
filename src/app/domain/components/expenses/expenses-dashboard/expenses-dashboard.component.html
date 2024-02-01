@@ -19,6 +19,13 @@
     </mat-grid-tile>
 
     <mat-grid-tile
+     [colspan]="( cardLayout | async )?.monthCard?.cols"
+      [rowspan]="( cardLayout | async )?.monthCard?.rows"
+    >
+      <span> Quantidade de Despesas:  {{ expenses().length }} </span>
+    </mat-grid-tile>
+
+    <mat-grid-tile
      [colspan]="( cardLayout | async )?.table?.cols"
       [rowspan]="( cardLayout | async )?.table?.rows"
     >

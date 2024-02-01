@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, computed, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -18,6 +18,7 @@ import { ExpenseComponent } from '../expenses/expense/expense.component';
   ],
   templateUrl: './dashboard-header-card.component.html',
   styleUrl: './dashboard-header-card.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardHeaderCardComponent {
   notificationService = inject(NotificationService);
