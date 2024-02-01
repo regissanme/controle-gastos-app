@@ -6,6 +6,7 @@ export const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'login', loadComponent: () => import('./core/login/login.component').then(m => m.LoginComponent) },
   { path: 'register', loadComponent: () => import('./core/register/register.component').then(m => m.RegisterComponent) },
+  { path: 'test', loadComponent: () => import('./mocks/test/test.component').then(m => m.TestComponent) },
   {
     path: 'app',
     loadChildren: () => import('./domain/domain.routes').then(r => r.DOMAIN_ROUTES)
