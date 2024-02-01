@@ -1,29 +1,25 @@
-import { TypesTotal } from './../../../../mocks/card-test/card-test.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { map } from 'rxjs';
-import { CardHeaderData } from '../../../models/card-header-data';
-import { DashboardHeaderCardComponent } from '../../dashboard-header-card/dashboard-header-card.component';
-import { MonthSelectorComponent } from '../../month-selector/month-selector.component';
-import { ExpenseComponent } from '../expense/expense.component';
-import { ExpensesService } from './../../../services/expenses.service';
-import { TotalsCardComponent } from '../../totals-card/totals-card.component';
 import { TypeCard } from '../../../models/type-card';
+import { MonthSelectorComponent } from '../../month-selector/month-selector.component';
+import { TotalsCardComponent } from '../../totals-card/totals-card.component';
+import { ExpensesService } from './../../../services/expenses.service';
 
 @Component({
   selector: 'app-expenses-dashboard',
   standalone: true,
   imports: [CommonModule,
     MatGridListModule,
-    TotalsCardComponent, ExpenseComponent, MonthSelectorComponent
+    TotalsCardComponent, MonthSelectorComponent
   ],
   templateUrl: './expenses-dashboard.component.html',
   styleUrl: './expenses-dashboard.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExpensesDashboardComponent implements OnInit{
+export class ExpensesDashboardComponent implements OnInit {
 
   private breakpointObserver = inject(BreakpointObserver);
   private expensesService = inject(ExpensesService);
