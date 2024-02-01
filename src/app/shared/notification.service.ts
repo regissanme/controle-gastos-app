@@ -39,7 +39,7 @@ export class NotificationService {
    * this.notificationService.error("confirm canceled");
    */
   error(message: string) {
-    this.openSnackBar(message, 'X', 'error-snackbar');
+    this.openSnackBar(message, 'X', 'error-snackbar', 0);
   }
 
   /**
