@@ -18,12 +18,11 @@ export class GlobalErrorHandlerService implements ErrorHandler {
     if (err instanceof HttpErrorResponse) {
       if (err.status === 0) {
         errorMessage = "Incapaz de conectar ao Servidor";
-        console.error(errorMessage);
       }
-     }
+    }
 
     if (err instanceof ErrorEvent) {
-      console.log("ErrorEvent recebido!");
+      errorMessage = "ErrorEvent recebido!";
     }
 
     if (err.error) {
@@ -36,13 +35,9 @@ export class GlobalErrorHandlerService implements ErrorHandler {
         errorMessage = `handler title: ${err.error.title}`;
       }
     } else {
-      // console.log("handler json: ", JSON.stringify(err));
       errorMessage = `handler: ${err.message}`;
     }
 
-
-    // TODO: Mostrar erro ao usuário
-    // console.error(errorMessage);
     this.showError(errorMessage);
   }
 
@@ -50,17 +45,5 @@ export class GlobalErrorHandlerService implements ErrorHandler {
     this.notificationService.error(message);
   }
 
-  // HttpErrorResponse = {
-  //   "headers": {
-  //     ...
-  //   },
-  //   "status": 0,
-  //   "statusText": "...",
-  //   "url": "http://...",
-  //   "ok": false,
-  //   "name": "HttpErrorResponse",
-  //   "message": "Http failure response for ...: 0 Unknown Error",
-  //   "error": { "isTrusted": true }
-  // }
 
 }
