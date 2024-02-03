@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../../shared/models/user';
 import { AuthService } from './../../../core/auth/auth.service';
 import { SidenavService } from './sidenav.service';
@@ -30,37 +30,34 @@ export class CustomSidenavComponent {
   sidenavCollapsed = signal(false);
   menuItems = signal<MenuItem[]>([]);
   profilePicSize = computed(() => this.sidenavCollapsed() ? '32' : '100');
-  user: User;
+  user: User = {} as User;
 
   @Input() set collapsed(val: boolean) {
     this.sidenavCollapsed.set(val);
   }
-  @Input() setUser(user: User) {
-    this.user = user;
-  }
+
 
   constructor(
     private sidenavService: SidenavService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
   ) {
     this.menuItems.set(sidenavService.getSidenavItems());
-    this.user = authService.getUser();
+    this.getUser();
+  }
+
+  private getUser() {
+    let storageUser = this.authService.getUser();
+    if (storageUser) {
+      this.user = storageUser;
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
 
-  getSymbol(): string {
-    return this.user ? this.user.name.toLocaleUpperCase().charAt(0) : 'R';
+  getUserSymbol(): string {
+    return this.user ? this.user.name.toLocaleUpperCase().charAt(0) : 'MS';
   }
-
-  // user: User = {
-  //   name: 'Reginaldo Santos de Medeiros',
-  //   active: true,
-  //   username: 'teste@email.com',
-  //   birthdate: '1978-11-14',
-  //   role: 'Admin',
-  //   lastAccessAt: '',
-  //   token: '',
-  //   id: ''
-  // };
 
 }
