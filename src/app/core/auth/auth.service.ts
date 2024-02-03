@@ -1,69 +1,94 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnInit, computed, signal } from '@angular/core';
+import { Injectable, OnInit, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { User } from '../../shared/models/user';
 
-const AUTH_API = "http://localhost:8080/api/v1/login";
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService implements OnInit {
 
+  private http = inject(HttpClient);
+  private router = inject(Router);
+
+  AUTH_API = "http://localhost:8080/api/v1/login";
+  httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+
   currentUserSig = signal<User | undefined | null>(undefined);
   isLoggedIn = computed(() => this.currentUserSig() ? true : false);
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.getUser();
+    this.verifyOldAuthentication();
   }
 
   setUser(user: User) {
-    localStorage.setItem('token', user.token);
-    localStorage.setItem('user', JSON.stringify(user));
+    this.setStorageData(user);
     this.currentUserSig.set(user);
   }
 
-  getUser() {
-    let storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      this.currentUserSig.set(JSON.parse(storedUser));
-      return JSON.parse(storedUser);
+  getUser(): User | null {
+    let user = this.getStorageData();
+    if (user) {
+      return user;
     }
-    this.currentUserSig.set(null);
+    console.log("Usuário NAO armazenado...");
     this.cleanStorage();
+    return null;
+  }
+
+  getToken() {
+    let user = this.getStorageData();
+    if (user) {
+      return user.token;
+    }
     return null;
   }
 
   logout() {
     this.cleanStorage();
-    this.currentUserSig.set(null);
     this.router.navigate(['/']);
   }
 
-  cleanStorage() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-  }
-
-  login(username: string, password: string): Observable<any> {
-    console.log("login(): user = " + username + " pwd = " + password);
-    return this.http.post(
-      AUTH_API,
+  login(username: string, password: string): Observable<User> {
+    return this.http.post<User>(
+      this.AUTH_API,
       {
         "username": username,
         "password": password
       },
-      httpOptions
+      this.httpOptions
+    ).pipe(
+      tap(response => this.setUser(response))
     );
+  }
+
+  private verifyOldAuthentication() {
+    if (this.getStorageData()) {
+      this.cleanStorage();
+    }
+  }
+
+  private getStorageData(): User | null {
+    let storedUser = localStorage.getItem('msu');
+    if (storedUser) {
+      console.log("Usuário armazenado...");
+      let currentUser = atob(storedUser);
+      return JSON.parse(currentUser);
+    }
+    return null;
+  }
+
+  private setStorageData(user: User) {
+    let toSave = btoa(JSON.stringify(user));
+    localStorage.setItem('msu', toSave);
+  }
+
+  private cleanStorage() {
+    localStorage.removeItem('msu');
+    this.currentUserSig.set(null);
   }
 }
