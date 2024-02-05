@@ -1,3 +1,4 @@
+
 <mat-toolbar class="mat-elevation-z3">
   <button mat-icon-button (click)="collapsed.set(!collapsed())">
     <mat-icon>menu</mat-icon>
@@ -9,6 +10,10 @@
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>
+
+@if(isLoading()){
+<mat-progress-bar mode="indeterminate" ></mat-progress-bar>
+}
 
 <mat-sidenav-container>
 
