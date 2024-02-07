@@ -1,21 +1,22 @@
 import { ApplicationConfig, ErrorHandler, LOCALE_ID } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
+import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import localePtBr from '@angular/common/locales/pt';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
-import { GlobalErrorHandlerService } from './shared/global-error-handler.service';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
-import localePtBr from '@angular/common/locales/pt';
-import { registerLocaleData } from '@angular/common';
+import { GlobalErrorHandlerService } from './shared/global-error-handler.service';
+import { loaderInterceptor } from './shared/interceptors/loader.interceptor';
 registerLocaleData(localePtBr);
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
-    provideHttpClient(withInterceptors([authInterceptor])),
-    // provideHttpClient(withInterceptors([errorInterceptorInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor, loaderInterceptor])),
+
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandlerService
@@ -25,5 +26,5 @@ export const appConfig: ApplicationConfig = {
       useValue: 'pt-BR'
     }
   ]
-  // TODO: add locale to pt-br
+
 };
