@@ -30,7 +30,7 @@ export class CustomSidenavComponent {
   sidenavCollapsed = signal(false);
   menuItems = signal<MenuItem[]>([]);
   profilePicSize = computed(() => this.sidenavCollapsed() ? '32' : '100');
-  user: User = {} as User;
+  user: User | null;
 
   @Input() set collapsed(val: boolean) {
     this.sidenavCollapsed.set(val);
@@ -43,21 +43,11 @@ export class CustomSidenavComponent {
     private router: Router,
   ) {
     this.menuItems.set(sidenavService.getSidenavItems());
-    this.getUser();
+    this.user = this.authService.getUser();
   }
-
-  private getUser() {
-    let storageUser = this.authService.getUser();
-    if (storageUser) {
-      this.user = storageUser;
-    } else {
-      this.router.navigate(['/login']);
-    }
-  }
-
 
   getUserSymbol(): string {
-    return this.user ? this.user.name.toLocaleUpperCase().charAt(0) : 'MS';
+    return this.user ? this.user?.name?.toLocaleUpperCase().charAt(0) : 'MS';
   }
 
 }
