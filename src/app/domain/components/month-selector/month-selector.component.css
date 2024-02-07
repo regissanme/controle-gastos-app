@@ -1,38 +1,74 @@
+.card {
+  position: relative;
+  /* margin: 5px; */
+  min-width: 300px;
+}
 
-.mat-button-toggle-group {
+.card-content {
+  text-align: center;
+  flex-grow: 1;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  height: 100%;
-  /* width: 99%; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
 }
-.mat-button-toggle {
-  margin: 3px !important;
-  width: 50px;
-}
-.mat-button-toggle:hover {
-  background-color: var(--button-primary-hover);
-}
-.mat-button-toggle-checked {
-  background-color: blue;
+
+.month-picker-card {
+  margin-top: 1.1rem;
+  padding: 1rem;
+  border-radius: 12px;
   color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.6);
+  transition: all 300ms ease;
+  z-index: 3;
 }
 
-.custom-button-toggle
-.mat-button-toggle-appearance-standard {
-  background: var(--pale);
+.month-picker-card:hover {
+  box-shadow: 0.2rem 0.2rem 0.3rem rgba(0, 0, 0, 0.8);
+}
+
+.month-picker-card-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: stretch;
+  justify-content: space-between;
+
+}
+
+.month-picker-gradient {
+  /* background: rgb(1, 33, 105); */
+  background: rgb(0, 127, 255);
+  /* background: linear-gradient(90deg, rgba(1, 33, 105, 1) 0%, rgba(0, 48, 143, 1) 35%, rgba(0, 127, 255, 1) 100%); */
+}
+
+.month-button {
+  background: white;
   color: black;
+  font-weight: 600;
   border-radius: 5px;
+  border: none;
+  margin: 2px;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
 }
 
-.custom-button-toggle
-.mat-button-toggle-appearance-standard:hover {
+.month-button:hover {
   background-color: var(--button-primary-hover);
 }
 
-.custom-button-toggle
-.mat-button-toggle-checked {
+
+.month-button-checked {
   color: white;
   background-color: var(--middle-green-dark);
-  font-weight: 500;
+}
+
+.month-button-checked:hover{
+  background-color: var(--middle-green-dark);
 }
