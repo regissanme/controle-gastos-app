@@ -8,7 +8,7 @@ import { User } from '../../shared/models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnInit {
+export class AuthService {
 
   private http = inject(HttpClient);
   private router = inject(Router);
@@ -19,9 +19,7 @@ export class AuthService implements OnInit {
   currentUserSig = signal<User | undefined | null>(undefined);
   isLoggedIn = computed(() => this.currentUserSig() ? true : false);
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
     this.verifyOldAuthentication();
   }
 
@@ -67,6 +65,7 @@ export class AuthService implements OnInit {
   }
 
   private verifyOldAuthentication() {
+    console.log("Verificando antiga autenticação...");
     if (this.getStorageData()) {
       this.cleanStorage();
     }
