@@ -42,6 +42,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
   }
 
   showError(message: string) {
+    console.error(message);
     this.notificationService.error(message);
   }
 
