@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { ExpenseComponent } from '../expenses/expense/expense.component';
-import { ModalService } from '../../../shared/modal.service';
+import { ModalService } from '../../../shared/services/modal.service';
 import { TypeCard } from '../../models/type-card';
 
 @Component({
@@ -22,8 +22,8 @@ export class TotalsCardComponent implements OnChanges {
 
   modalService = inject(ModalService);
 
-  @Input() type: TypeCard = TypeCard.Saldo ;
-  @Input() value = 0 ;
+  @Input() type: TypeCard = TypeCard.Saldo;
+  @Input() value = 0;
   @Input() route = '';
   @Input() showRoute: boolean = false;
   @Input() quantity = 0;
