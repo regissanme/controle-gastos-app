@@ -1,7 +1,9 @@
 export interface Expense {
   id: number;
-  mes: string;
+  data: string;
   valor: number;
+  parcelas: number;
+  parcelaAtual?: number;
   descricao?: string;
   tipoPagamentoId: number;
   tipoDespesaId: number;
