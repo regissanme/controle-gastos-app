@@ -16,9 +16,11 @@ body {
   --button-primary: #AC5D5D;
   --button-primary-hover: #e09c9a;
   --button-secondary: #6002EE;
-  --button-secondary-hover: #b794f6;
+  --button-secondary-hover: #c3b7ff;
   --button-white: #fff;
   --button-white-hover: #dbdbdb;
+  --button-dark: #222;
+  --button-dark-hover: #aaa;
 }
 
 .success-snackbar {
