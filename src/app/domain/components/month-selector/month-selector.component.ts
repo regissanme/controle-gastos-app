@@ -46,8 +46,8 @@ export class MonthSelectorComponent {
   ];
 
   years: number[] = [
-    2012,
-    2013,
+    // 2012,
+    // 2013,
     2014,
     2015,
     2016,
@@ -63,9 +63,6 @@ export class MonthSelectorComponent {
 
   selectedYear = new Date().getFullYear();
   selectedMonth = new Date().getMonth();
-  selected: Date | null = new Date();
-  monthControl = new FormControl(this.selectMonth);
-  yearControl = new FormControl(this.selectedYear);
 
   selectMonth(month: number) {
     if (this.selectedMonth === month) return;

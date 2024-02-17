@@ -1,15 +1,28 @@
-<div class="card">
-  <div class="card-content">
-    <div class="month-picker-card  month-picker-gradient">
-      <div class="month-picker-card-content">
-
-        @for (item of months; track item) {
-        <button [class]="selectedMonth === item.index ? 'month-button month-button-checked' : 'month-button'"
-          (click)="selectMonth(item.index)">
-          {{item.name}}
+<div class="selector-main">
+  <div class="selector-container">
+    <div class="selector-content selector-bg">
+      <div class="selector-items">
+        @for (year of years; track year) {
+        <button
+          [class]="'selector-year'"
+          [class.selector-checked]="selectedYear === year"
+          (click)="selectYear(year)"
+        >
+          {{ year }}
         </button>
         }
-
+      </div>
+      <hr>
+      <div class="selector-items">
+        @for (item of months; track item) {
+        <button
+          [class]="'selector-item'"
+          [class.selector-checked]="selectedMonth === item.index"
+          (click)="selectMonth(item.index)"
+        >
+          {{ item.name }}
+        </button>
+        }
       </div>
     </div>
   </div>
