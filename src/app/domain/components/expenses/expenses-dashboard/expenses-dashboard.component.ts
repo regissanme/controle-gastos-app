@@ -6,14 +6,16 @@ import { map } from 'rxjs';
 import { TypeCard } from '../../../models/type-card';
 import { MonthSelectorComponent } from '../../month-selector/month-selector.component';
 import { TotalsCardComponent } from '../../totals-card/totals-card.component';
+import { ExpenseComponent } from '../expense/expense.component';
 import { ExpensesService } from './../../../services/expenses.service';
+import { ExpensesTableComponent } from '../expenses-table/expenses-table.component';
 
 @Component({
   selector: 'app-expenses-dashboard',
   standalone: true,
   imports: [CommonModule,
     MatGridListModule,
-    TotalsCardComponent, MonthSelectorComponent
+    TotalsCardComponent, MonthSelectorComponent, ExpenseComponent, ExpensesTableComponent
   ],
   templateUrl: './expenses-dashboard.component.html',
   styleUrl: './expenses-dashboard.component.css',
@@ -28,7 +30,8 @@ export class ExpensesDashboardComponent implements OnInit {
   expenseTypeCard = TypeCard.Despesas;
   expensesValue = this.expensesService.expensesSigTotals;
   expenseQuantity = this.expensesService.expensesSigLength;
-  selectedMonth = 0;
+  selectedMonth = new Date().getMonth();
+  selectedYear = new Date().getFullYear();
 
   cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -56,10 +59,14 @@ export class ExpensesDashboardComponent implements OnInit {
     this.expensesService.getAllExpenses();
   }
 
-  selectMonth(month: number) {
-    console.log("Mês Selecionado anterior: ", this.selectedMonth);
+  selectMonth(month: number): void {
     this.selectedMonth = month;
     console.log("Mês Selecionado atual: ", this.selectedMonth);
+  }
+
+  selectYear(year: number): void {
+    this.selectedYear = year;
+    console.log("Ano Selecionado atual: ", this.selectedYear);
   }
 
 }

@@ -12,10 +12,18 @@
 
     <!-- Select Month -->
     <mat-grid-tile
-     [colspan]="( cardLayout | async )?.monthCard?.cols"
-      [rowspan]="( cardLayout | async )?.monthCard?.rows"
+     [colspan]="( cardLayout | async )?.miniCard?.cols"
+      [rowspan]="( cardLayout | async )?.miniCard?.rows"
     >
-      <app-month-selector (monthEvent)="selectMonth($event)"></app-month-selector>
+      <app-month-selector (monthEvent)="selectMonth($event)" (yearEvent)="selectYear($event)"></app-month-selector>
+    </mat-grid-tile>
+
+    <!-- Expense Table -->
+    <mat-grid-tile
+     [colspan]="( cardLayout | async )?.table?.cols"
+      [rowspan]="( cardLayout | async )?.table?.rows"
+    >
+      <app-expenses-table></app-expenses-table>
     </mat-grid-tile>
 
   </mat-grid-list>
