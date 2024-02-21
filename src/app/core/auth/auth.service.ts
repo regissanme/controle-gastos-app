@@ -21,6 +21,7 @@ export class AuthService {
 
   constructor() {
     this.verifyOldAuthentication();
+    this.isExpired();
   }
 
   setUser(user: User) {
@@ -46,6 +47,20 @@ export class AuthService {
     return null;
   }
 
+  isExpired() {
+    let user = this.getStorageData();
+    if (user) {
+      var expiration = new Date(user.expiration).toISOString();
+      var now = new Date().toISOString();
+      console.log("Expiration: " + expiration
+        + "\nCurrent:    " + now
+        + "\nExpired:    " + (expiration < now)
+      );
+      return expiration < now;
+    }
+    return true;
+  }
+
   logout() {
     this.cleanStorage();
     this.router.navigate(['/']);
@@ -66,9 +81,11 @@ export class AuthService {
 
   private verifyOldAuthentication() {
     console.log("Verificando antiga autenticação...");
-    if (this.getStorageData()) {
-      this.cleanStorage();
-    }
+    this.currentUserSig.set(this.getUser());
+
+    // if (this.getStorageData()) {
+    //   this.cleanStorage();
+    // }
   }
 
   private getStorageData(): User | null {
