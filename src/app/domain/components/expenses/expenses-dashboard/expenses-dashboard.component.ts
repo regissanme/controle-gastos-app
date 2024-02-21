@@ -56,17 +56,19 @@ export class ExpensesDashboardComponent implements OnInit {
   );
 
   ngOnInit(): void {
-    this.expensesService.getAllExpenses();
+    this.expensesService.getAllExpenses(this.selectedMonth, this.selectedYear);
   }
 
   selectMonth(month: number): void {
     this.selectedMonth = month;
     console.log("Mês Selecionado atual: ", this.selectedMonth);
+    this.expensesService.getAllExpenses(this.selectedMonth, this.selectedYear);
   }
 
   selectYear(year: number): void {
     this.selectedYear = year;
     console.log("Ano Selecionado atual: ", this.selectedYear);
+    this.expensesService.getAllExpenses(this.selectedMonth, this.selectedYear);
   }
 
 }
