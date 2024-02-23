@@ -10,12 +10,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = authService.getToken();
   if (!token || authService.isExpired()) {
     router.navigate(['/login']);
+  } else {
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
 
-  req = req.clone({
-    setHeaders: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+
   return next(req);
 };
