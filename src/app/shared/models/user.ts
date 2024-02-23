@@ -7,6 +7,7 @@ export interface User {
   birthdate: string;
   lastAccessAt: string;
   token: string;
+  expiration: string;
 }
 
 
