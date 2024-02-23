@@ -1,30 +1,24 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Painel</h1>
+
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
 
     <!--Total Card-->
-    <mat-grid-tile
-     [colspan]="( cardLayout | async )?.miniCard?.cols"
-      [rowspan]="( cardLayout | async )?.miniCard?.rows"
-    >
-      <app-totals-card [type]="expenseTypeCard" [route]="expenseRoute" [value]="expensesValue()" [showRoute]="false" [quantity]="expenseQuantity()"/>
+    <mat-grid-tile [colspan]="( cardLayout | async )?.miniCard?.cols"
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+      <app-totals-card [type]="expenseTypeCard" [route]="expenseRoute" [value]="expensesValue()" [showRoute]="false"
+        [quantity]="expenseQuantity()" />
     </mat-grid-tile>
 
     <!-- Select Month -->
-    <mat-grid-tile
-     [colspan]="( cardLayout | async )?.miniCard?.cols"
-      [rowspan]="( cardLayout | async )?.miniCard?.rows"
-    >
-      <app-month-selector (monthEvent)="selectMonth($event)" (yearEvent)="selectYear($event)"></app-month-selector>
-    </mat-grid-tile>
-
-    <!-- Expense Table -->
-    <mat-grid-tile
-     [colspan]="( cardLayout | async )?.table?.cols"
-      [rowspan]="( cardLayout | async )?.table?.rows"
-    >
-      <app-expenses-table></app-expenses-table>
+    <mat-grid-tile [colspan]="( cardLayout | async )?.miniCard?.cols"
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+      <app-month-selector (monthEvent)="onSelectMonth($event)" (yearEvent)="onSelectYear($event)"
+        [activeMonths]="activeMonths()" [activeYears]="activeYears()"></app-month-selector>
     </mat-grid-tile>
 
   </mat-grid-list>
+
+  <!-- Expense Table -->
+  <app-expenses-table></app-expenses-table>
+
 </div>

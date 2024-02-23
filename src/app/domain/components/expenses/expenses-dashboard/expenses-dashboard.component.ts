@@ -7,8 +7,8 @@ import { TypeCard } from '../../../models/type-card';
 import { MonthSelectorComponent } from '../../month-selector/month-selector.component';
 import { TotalsCardComponent } from '../../totals-card/totals-card.component';
 import { ExpenseComponent } from '../expense/expense.component';
-import { ExpensesService } from './../../../services/expenses.service';
 import { ExpensesTableComponent } from '../expenses-table/expenses-table.component';
+import { ExpensesService } from './../../../services/expenses.service';
 
 @Component({
   selector: 'app-expenses-dashboard',
@@ -30,6 +30,9 @@ export class ExpensesDashboardComponent implements OnInit {
   expenseTypeCard = TypeCard.Despesas;
   expensesValue = this.expensesService.expensesSigTotals;
   expenseQuantity = this.expensesService.expensesSigLength;
+  activeMonths = this.expensesService.monthsWithExpenses;
+  activeYears = this.expensesService.yearsWithExpenses;
+
   selectedMonth = new Date().getMonth();
   selectedYear = new Date().getFullYear();
 
@@ -47,7 +50,7 @@ export class ExpensesDashboardComponent implements OnInit {
 
       return {
         columns: 12,
-        miniCard: { cols: 4, rows: 1 },
+        miniCard: { cols: 6, rows: 1 },
         monthCard: { cols: 8, rows: 1 },
         chart: { cols: 6, rows: 2 },
         table: { cols: 12, rows: 4 },
@@ -56,19 +59,23 @@ export class ExpensesDashboardComponent implements OnInit {
   );
 
   ngOnInit(): void {
-    this.expensesService.getAllExpenses(this.selectedMonth, this.selectedYear);
+    this.expensesService.findYearsAndMonths(this.selectedYear)
+    this.getExpenses(this.selectedMonth, this.selectedYear);
   }
 
-  selectMonth(month: number): void {
+  onSelectMonth(month: number): void {
     this.selectedMonth = month;
-    console.log("Mês Selecionado atual: ", this.selectedMonth);
-    this.expensesService.getAllExpenses(this.selectedMonth, this.selectedYear);
+    this.getExpenses(this.selectedMonth, this.selectedYear);
   }
 
-  selectYear(year: number): void {
+  onSelectYear(year: number): void {
     this.selectedYear = year;
-    console.log("Ano Selecionado atual: ", this.selectedYear);
-    this.expensesService.getAllExpenses(this.selectedMonth, this.selectedYear);
+    this.expensesService.findYearsAndMonths(this.selectedYear)
+    this.getExpenses(this.selectedMonth, this.selectedYear);
+  }
+
+  getExpenses(month: number, year: number) {
+    this.expensesService.getAllExpensesByMonth(this.selectedMonth, this.selectedYear);
   }
 
 }
