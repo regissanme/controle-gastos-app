@@ -74,7 +74,12 @@ export class AuthService {
   }
 
   private verifyOldAuthentication() {
-    this.currentUserSig.set(this.getUser());
+    if (this.isExpired()) {
+      this.cleanStorage();
+    } else {
+      this.currentUserSig.set(this.getUser());
+    }
+
   }
 
   private getStorageData(): User | null {
