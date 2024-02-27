@@ -1,88 +1,77 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { BehaviorSubject, Observable, take } from 'rxjs';
-import { AuthService } from '../../core/auth/auth.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Expense } from '../models/expense';
+import { ExpensesApiService } from './expenses-api.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ExpensesService {
 
-  private http = inject(HttpClient);
-  private authService = inject(AuthService);
+  private expensesApiService = inject(ExpensesApiService);
 
-  API_URL = "http://localhost:8080/api/v1/despesa";
-
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
-
-  private _expenses = new BehaviorSubject<Expense[]>([]);
+  _expenses = new BehaviorSubject<Expense[]>([]);
   monthlyExpensesSig = signal<Expense[]>([]);
   expensesSigLength = computed(() => this.monthlyExpensesSig().length ? this.monthlyExpensesSig().length : 0);
   expensesSigTotals = computed(() =>
     this.monthlyExpensesSig().length ? this.monthlyExpensesSig()?.map((value => value.valor))?.reduce(function (a, b) { return a + b }) : 0
   );
 
+  expensesMonths = computed(() => { return [...new Set(this.monthlyExpensesSig().map((item) => new Date(item.data).getMonth()))] });
+  yearsWithExpenses = signal<number[]>([])
+  monthsWithExpenses = signal<number[]>([])
+
   constructor() {
   }
 
   create(expense: Expense): Observable<Expense> {
-
     console.log("save(): " + JSON.stringify(expense));
 
-    return this.http.post<Expense>(
-      this.API_URL,
-      JSON.stringify(expense),
-      this.httpOptions,
-    )
+    return this.expensesApiService.create(expense);
   }
 
-  save(entity: Expense) {
-    if (entity.id) {
-      return this.update(entity);
-    } else {
-      return this.createExpense(entity);
-    }
-  }
-
-  private createExpense(entity: Expense) {
-    return this.http.post<Expense>(this.API_URL, entity).pipe(take(1));
-  }
-
-  private update(entity: Expense) {
-    const url = `${this.API_URL}/${entity.id}`;
-    return this.http.put<Expense>(url, entity).pipe(take(1));
-  }
-
-  delete(entity: Expense) {
-    const url = `${this.API_URL}/${entity.id}`;
-    return this.http.delete<Expense>(url).pipe(take(1));
-  }
-
-  loadById(id: number) {
-    const url = `${this.API_URL}/${id}`;
-    return this.http.get<Expense>(url).pipe(take(1));
-  }
-
-  getAllExpenses(month: number, year: number) {
-    let userId = this.authService.currentUserSig()?.id;
-
-    this.http.get<Expense[]>(this.API_URL + `/all/${userId}/${year}`)
-      .pipe(take(1))
+  getAllExpensesByYear(year: number) {
+    this.expensesApiService.getAllExpensesByYear(year)
       .subscribe(value => {
         this._expenses.next(value),
           this.monthlyExpensesSig.set(value),
-          this.showChangedValues()
+          this.showChangedValues(value)
       });
   }
 
+  getAllExpensesByMonth(month: number, year: number) {
+    this.expensesApiService.getAllExpensesByMonth(month, year)
+      .subscribe(value => {
+        this._expenses.next(value),
+          this.monthlyExpensesSig.set(value),
+          this.showChangedValues(value)
+      });
+  }
 
+  findYearsAndMonths(year: number) {
+    this.getYearsWithExpensesFromUser();
+    this.getMonthsWithExpensesFromUserAndYear(year);
+  }
 
-  showChangedValues() {
+  getYearsWithExpensesFromUser() {
+    this.expensesApiService.getYearsWithExpensesFromUser()
+      .subscribe(values => {
+        this.yearsWithExpenses.set(values);
+      });
+  }
+
+  getMonthsWithExpensesFromUserAndYear(year: number) {
+    this.expensesApiService.getMonthsWithExpensesFromUserAndYear(year)
+      .subscribe(values => {
+        this.monthsWithExpenses.set(values);
+      });
+  }
+
+  private showChangedValues(values: Expense[]) {
     console.log("Changed values =================================");
     console.log("expensesSig length: " + this.expensesSigLength());
     console.log("expensesSig totals: " + this.expensesSigTotals());
+    console.log("expensesMonths    : " + this.expensesMonths());
+    // console.log(values);
   }
 
 
