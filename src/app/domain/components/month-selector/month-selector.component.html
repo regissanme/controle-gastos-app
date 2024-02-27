@@ -2,11 +2,11 @@
   <div class="selector-container">
     <div class="selector-content selector-bg">
       <div class="selector-items">
-        @for (year of years; track year) {
+        @for (year of activeYears; track year) {
         <button
           [class]="'selector-year'"
           [class.selector-checked]="selectedYear === year"
-          (click)="selectYear(year)"
+          (click)="onSelectYear(year)"
         >
           {{ year }}
         </button>
@@ -18,7 +18,8 @@
         <button
           [class]="'selector-item'"
           [class.selector-checked]="selectedMonth === item.index"
-          (click)="selectMonth(item.index)"
+          (click)="onSelectMonth(item.index)"
+          [disabled]="monthDisabled(item.index)"
         >
           {{ item.name }}
         </button>

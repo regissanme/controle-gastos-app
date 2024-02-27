@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -24,60 +24,58 @@ export interface Month {
   templateUrl: './month-selector.component.html',
   styleUrl: './month-selector.component.css'
 })
-export class MonthSelectorComponent {
+export class MonthSelectorComponent implements OnChanges {
 
   @Output() monthEvent = new EventEmitter<number>();
   @Output() yearEvent = new EventEmitter<number>();
-
-
-  months: Month[] = [
-    { index: 0, name: "JAN" },
-    { index: 1, name: "FEV" },
-    { index: 2, name: "MAR" },
-    { index: 3, name: "ABR" },
-    { index: 4, name: "MAI" },
-    { index: 5, name: "JUN" },
-    { index: 6, name: "JUL" },
-    { index: 7, name: "AGO" },
-    { index: 8, name: "SET" },
-    { index: 9, name: "OUT" },
-    { index: 10, name: "NOV" },
-    { index: 11, name: "DEZ" },
-  ];
-
-  years: number[] = [
-    // 2012,
-    // 2013,
-    2014,
-    2015,
-    2016,
-    2017,
-    2018,
-    2019,
-    2020,
-    2021,
-    2022,
-    2023,
-    2024
-  ];
+  @Input({ required: true }) activeMonths!: number[];
+  @Input({ required: true }) activeYears!: number[];
 
   selectedYear = new Date().getFullYear();
-  selectedMonth = new Date().getMonth();
+  selectedMonth = new Date().getMonth() + 1;
 
-  selectMonth(month: number) {
-    if (this.selectedMonth === month) return;
+  months: Month[] = [
+    { index: 1, name: "JAN" },
+    { index: 2, name: "FEV" },
+    { index: 3, name: "MAR" },
+    { index: 4, name: "ABR" },
+    { index: 5, name: "MAI" },
+    { index: 6, name: "JUN" },
+    { index: 7, name: "JUL" },
+    { index: 8, name: "AGO" },
+    { index: 9, name: "SET" },
+    { index: 10, name: "OUT" },
+    { index: 11, name: "NOV" },
+    { index: 12, name: "DEZ" },
+  ];
 
-    console.log("Emitindo Mês selecionado: ", month);
-    this.selectedMonth = month;
-    this.monthEvent.emit(month);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.activeMonths[0]) {
+      this.selectedMonth = this.activeMonths[0];
+      this.monthEvent.emit(this.selectedMonth);
+    }
   }
 
-  selectYear(year: number) {
+  onSelectMonth(month: number): void {
+    if (this.selectedMonth === month) return;
+
+    this.selectedMonth = month;
+    this.monthEvent.emit(this.selectedMonth);
+  }
+
+  onSelectYear(year: number): void {
     if (this.selectedYear === year) return;
 
-    console.log("Emitindo Ano selecionado: ", year);
     this.selectedYear = year;
-    this.yearEvent.emit(year);
+    this.yearEvent.emit(this.selectedYear);
+  }
+
+  monthDisabled(index: number): boolean {
+    return this.activeMonths.filter(m => m === index).length === 0;
+  }
+
+  yearDisabled(year: number): boolean {
+    return this.activeYears.filter(y => y === year).length === 0;
   }
 
 }
