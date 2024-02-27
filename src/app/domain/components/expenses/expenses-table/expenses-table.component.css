@@ -1,3 +1,11 @@
 .full-width-table {
   width: 100%;
 }
+
+.mat-footer-row,
+.mat-header-row,
+.mat-row {
+    display: flex;
+    flex-grow: 1;
+    min-width: 100%;
+}
