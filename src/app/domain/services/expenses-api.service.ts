@@ -18,14 +18,10 @@ export class ExpensesApiService {
   constructor() { }
 
   create(expense: Expense): Observable<Expense> {
-    return this.http.post<Expense>(
-      this.API_URL,
-      expense,
-      this.httpOptions,
-    )
+    return this.http.post<Expense>(this.API_URL, expense, this.httpOptions,);
   }
 
-  update(entity: Expense) {
+  update(entity: Expense): Observable<Expense> {
     let url = `${this.API_URL}/${entity.id}`;
     return this.http.put<Expense>(url, entity).pipe(take(1));
   }
@@ -35,7 +31,7 @@ export class ExpensesApiService {
     return this.http.delete<Expense>(url).pipe(take(1));
   }
 
-  loadById(id: number) {
+  loadById(id: number): Observable<Expense> {
     let url = `${this.API_URL}/${id}`;
     return this.http.get<Expense>(url).pipe(take(1));
   }
