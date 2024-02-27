@@ -4,9 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { ExpenseComponent } from '../expenses/expense/expense.component';
 import { ModalService } from '../../../shared/services/modal.service';
 import { TypeCard } from '../../models/type-card';
+import { ExpenseComponent } from '../expenses/expense/expense.component';
 
 @Component({
   selector: 'app-totals-card',
