@@ -21,9 +21,6 @@ export class ExpensesTableDataSource extends DataSource<Expense> {
 
   connect(): Observable<Expense[]> {
     if (this.paginator && this.sort) {
-      // Combine everything that affects the rendered data into one update
-      // stream for the data-table to consume.
-      // return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
       return merge(this.expenses$.asObservable(), this.paginator.page, this.sort.sortChange)
         .pipe(
           map(() => {
