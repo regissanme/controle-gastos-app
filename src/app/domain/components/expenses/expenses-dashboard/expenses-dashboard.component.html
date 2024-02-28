@@ -3,18 +3,38 @@
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
 
     <!--Total Card-->
-    <mat-grid-tile [colspan]="( cardLayout | async )?.miniCard?.cols"
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.miniCard?.cols"
       [rowspan]="( cardLayout | async )?.miniCard?.rows">
-      <app-totals-card [type]="expenseTypeCard" [route]="expenseRoute" [value]="expensesValue()" [showRoute]="false"
+      <app-totals-card
+        [type]="expenseTypeCard"
+        [route]="expenseRoute"
+        [value]="expensesValue()"
+        [showRoute]="false"
         [quantity]="expenseQuantity()" />
     </mat-grid-tile>
 
     <!-- Select Month -->
-    <mat-grid-tile [colspan]="( cardLayout | async )?.miniCard?.cols"
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.miniCard?.cols"
       [rowspan]="( cardLayout | async )?.miniCard?.rows">
-      <app-month-selector (monthEvent)="onSelectMonth($event)" (yearEvent)="onSelectYear($event)"
-        [activeMonths]="activeMonths()" [activeYears]="activeYears()"></app-month-selector>
+      <app-month-selector
+        (monthEvent)="onSelectMonth($event)"
+        (yearEvent)="onSelectYear($event)"
+        [activeMonths]="activeMonths()"
+        [activeYears]="activeYears()">
+      </app-month-selector>
     </mat-grid-tile>
+
+    <!--Charts-->
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.chart?.cols"
+      [rowspan]="( cardLayout | async )?.chart?.rows">
+      <app-dashboard-card title="Gráfico Mensal">
+        <app-monthly-chart></app-monthly-chart>
+      </app-dashboard-card>
+    </mat-grid-tile>
+
 
   </mat-grid-list>
 
