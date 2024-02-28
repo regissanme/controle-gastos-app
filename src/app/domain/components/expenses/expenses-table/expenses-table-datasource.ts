@@ -64,6 +64,8 @@ export class ExpensesTableDataSource extends DataSource<Expense> {
         case 'id': return compare(+a.id, +b.id, isAsc);
         case 'parcelas': return compare(+a.parcelas, +b.parcelas, isAsc);
         case 'data': return compare(a.data, b.data, isAsc);
+        case 'tipoPagamentoId': return compare(a.tipoPagamentoId, b.tipoPagamentoId, isAsc);
+        case 'tipoDespesaId': return compare(a.tipoDespesaId, b.tipoDespesaId, isAsc);
         default: return 0;
       }
     });

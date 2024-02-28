@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { PaymentType } from '../models/payment-type';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { PaymentType } from './../models/payment-type';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,8 @@ export class PaymentService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
+  _payments = new BehaviorSubject<PaymentType[]>([]);
+
   constructor(private http: HttpClient,) { }
 
   getAll(): Observable<PaymentType[]> {
@@ -20,7 +22,16 @@ export class PaymentService {
     return this.http.get<PaymentType[]>(
       this.API_URL,
       this.httpOptions
+    ).pipe(
+      tap(expenses => this._payments.next(expenses))
     );
+  }
+
+  getPaymentName(paymentId: number): string | undefined {
+    if (this._payments.getValue().length > 0) {
+      return this._payments.getValue().find((e) => e.id === paymentId)?.tipo;
+    }
+    return undefined;
   }
 
 }
