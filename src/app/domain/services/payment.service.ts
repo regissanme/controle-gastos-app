@@ -27,11 +27,9 @@ export class PaymentService {
     );
   }
 
-  getPaymentName(paymentId: number): string | undefined {
-    if (this._payments.getValue().length > 0) {
-      return this._payments.getValue().find((e) => e.id === paymentId)?.tipo;
-    }
-    return undefined;
+  getPaymentName(paymentId: number): string {
+    let paymentType = this._payments.getValue().find((e) => e.id === paymentId)?.tipo;
+    return paymentType ?? 'none';
   }
 
 }
