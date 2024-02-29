@@ -27,21 +27,14 @@ export class ExpenseCategoryService {
     );
   }
 
-  getExpenseCategoryName(categoryId: number): string | undefined {
-    if (this._expensesCategory.getValue().length > 0) {
-      return this._expensesCategory.getValue().find((e) => e.id === categoryId)?.descricao;
-    }
-    return undefined;
+  getExpenseCategoryName(categoryId: number): string {
+    return this._expensesCategory.getValue().find((e) => e.id === categoryId)?.descricao ?? 'none';
   }
 
-  getExpenseTypeName(expenseTypeId: number): string | undefined {
-    if (this._expensesCategory.getValue().length > 0) {
-      return this._expensesCategory.getValue()
-        .find(e => e.tiposDespesas
-          .find(t => t.id === expenseTypeId))?.tiposDespesas
-        .find(t => t.id === expenseTypeId)?.descricao;
-    }
-    return undefined;
+  getExpenseTypeName(expenseTypeId: number): string {
+    return this._expensesCategory.getValue()
+      .find(e => e.tiposDespesas.find(t => t.id === expenseTypeId))?.tiposDespesas
+      .find(t => t.id === expenseTypeId)?.descricao ?? 'none';
   }
 
 }
