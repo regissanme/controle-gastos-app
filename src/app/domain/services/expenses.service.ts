@@ -1,6 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Expense } from '../models/expense';
+import { ExpenseChartData } from '../models/expense-chart-data';
 import { ExpensesApiService } from './expenses-api.service';
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ export class ExpensesService {
   private expensesApiService = inject(ExpensesApiService);
 
   _expenses = new BehaviorSubject<Expense[]>([]);
-  ExpensesSig = signal<Expense[]>([]);
-  expensesSigLength = computed(() => this.ExpensesSig().length ?? 0);
+  expensesSig = signal<Expense[]>([]);
+  expensesSigLength = computed(() => this.expensesSig().length ?? 0);
   expensesSigTotals = computed(() =>
-    this.ExpensesSig().length ? this.ExpensesSig()?.map((e => e.valor))?.reduce(function (a, b) { return a + b }) : 0
+    this.expensesSig().length ? this.expensesSig()?.map((e => e.valor))?.reduce(function (a, b) { return a + b }) : 0
   );
   yearsWithExpenses = signal<number[]>([]);
   monthsWithExpenses = signal<number[]>([]);
@@ -29,7 +30,7 @@ export class ExpensesService {
     this.expensesApiService.getAllExpensesByYear(year)
       .subscribe(value => {
         this._expenses.next(value),
-          this.ExpensesSig.set(value)
+          this.expensesSig.set(value)
       });
   }
 
@@ -37,7 +38,7 @@ export class ExpensesService {
     this.expensesApiService.getAllExpensesByMonth(month, year)
       .subscribe(value => {
         this._expenses.next(value),
-          this.ExpensesSig.set(value)
+          this.expensesSig.set(value)
       });
   }
 
@@ -59,5 +60,20 @@ export class ExpensesService {
         this.monthsWithExpenses.set(values);
       });
   }
+
+  getChartDataByType(): ExpenseChartData[] {
+
+    let response: ExpenseChartData[] = [];
+    [...this._expenses.getValue()].map(e =>
+      response.push({ label: `${e.tipoDespesaId}`, total: e.valor } as ExpenseChartData)
+    );
+
+    return [...response]?.reduce((acc: ExpenseChartData[], ele) => {
+      const existingExpense = acc.find(x => x.label === ele.label);
+      if (!existingExpense) return acc.concat(ele);
+      return (existingExpense.total += ele.total, acc);
+    }, []);
+  }
+
 
 }
