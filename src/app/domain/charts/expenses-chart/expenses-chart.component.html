@@ -1,0 +1,21 @@
+<div class="chartContainer">
+
+  <div class="selector">
+    <mat-form-field appearance="outline">
+      <mat-label>Filtrar por: </mat-label>
+      <mat-select [formControl]="type" name="filter" required>
+        @for (type of filterTypes; track type) {
+        <mat-option [value]="type">{{type}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <canvas baseChart
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [type]="barChartType">
+  </canvas>
+</div>

@@ -1,0 +1,21 @@
+.chartContainer canvas {
+  max-height: 250px;
+  width: auto;
+}
+
+.chartContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.chartContainer .selector {
+  display: flex;
+  align-items: start;
+  align-content: start;
+  justify-content: start;
+  width: 100%;
+  /* background-color: #c41e3a; */
+}
