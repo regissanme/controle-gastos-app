@@ -7,7 +7,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { map } from 'rxjs/operators';
-import { MonthlyChartComponent } from '../../charts/monthly-chart/monthly-chart.component';
+import { ExpensesChartComponent } from '../../charts/expenses-chart/expenses-chart.component';
 import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 import { TotalsCardComponent } from '../../components/totals-card/totals-card.component';
 import { TypeCard } from '../../models/type-card';
@@ -28,7 +28,7 @@ import { ExpensesService } from './../../services/expenses.service';
 
     DashboardCardComponent,
     TotalsCardComponent,
-    MonthlyChartComponent,
+    ExpensesChartComponent,
   ]
 })
 export class DashboardComponent {

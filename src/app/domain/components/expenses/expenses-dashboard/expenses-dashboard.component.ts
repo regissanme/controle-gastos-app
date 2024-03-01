@@ -9,7 +9,7 @@ import { TotalsCardComponent } from '../../totals-card/totals-card.component';
 import { ExpenseComponent } from '../expense/expense.component';
 import { ExpensesTableComponent } from '../expenses-table/expenses-table.component';
 import { ExpensesService } from './../../../services/expenses.service';
-import { MonthlyChartComponent } from '../../../charts/monthly-chart/monthly-chart.component';
+import { ExpensesChartComponent } from '../../../charts/expenses-chart/expenses-chart.component';
 import { DashboardCardComponent } from '../../dashboard-card/dashboard-card.component';
 
 @Component({
@@ -17,7 +17,7 @@ import { DashboardCardComponent } from '../../dashboard-card/dashboard-card.comp
   standalone: true,
   imports: [CommonModule,
     MatGridListModule,
-    TotalsCardComponent, MonthSelectorComponent, ExpenseComponent, ExpensesTableComponent, MonthlyChartComponent, DashboardCardComponent
+    TotalsCardComponent, MonthSelectorComponent, ExpenseComponent, ExpensesTableComponent, ExpensesChartComponent, DashboardCardComponent
   ],
   templateUrl: './expenses-dashboard.component.html',
   styleUrl: './expenses-dashboard.component.css',
