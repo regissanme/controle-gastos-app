@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnInit, computed, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { User } from '../../shared/models/user';
+import { LoaderService } from '../../shared/services/loader.service';
 
 
 @Injectable({
@@ -12,6 +13,7 @@ export class AuthService {
 
   private http = inject(HttpClient);
   private router = inject(Router);
+  private loaderService = inject(LoaderService);
 
   AUTH_API = "http://localhost:8080/api/v1/login";
   httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
@@ -61,7 +63,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<User> {
-    return this.http.post<User>(
+    const response = this.http.post<User>(
       this.AUTH_API,
       {
         "username": username,
@@ -71,6 +73,8 @@ export class AuthService {
     ).pipe(
       tap(response => this.setUser(response))
     );
+
+    return this.loaderService.showLoadingUntilCompleted(response);
   }
 
   private verifyOldAuthentication() {

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { LoaderService } from '../../shared/services/loader.service';
 import { ExpenseCategory } from '../models/expense-category';
 
 @Injectable({
@@ -15,20 +16,27 @@ export class ExpenseCategoryService {
 
   _expensesCategory = new BehaviorSubject<ExpenseCategory[]>([]);
 
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient, private loaderService: LoaderService) { }
 
   getAll(): Observable<ExpenseCategory[]> {
 
-    return this.http.get<ExpenseCategory[]>(
+    const response = this.http.get<ExpenseCategory[]>(
       this.API_URL,
       this.httpOptions
     ).pipe(
       tap(categories => this._expensesCategory.next(categories))
     );
+
+    return this.loaderService.showLoadingUntilCompleted(response);
   }
 
   getExpenseCategoryName(categoryId: number): string {
     return this._expensesCategory.getValue().find((e) => e.id === categoryId)?.descricao ?? 'none';
+  }
+
+  getExpenseCategoryNameByType(expenseTypeId: number): string {
+    return this._expensesCategory.getValue()
+      .find(e => e.tiposDespesas.find(t => t.id === expenseTypeId))?.descricao ?? 'none';
   }
 
   getExpenseTypeName(expenseTypeId: number): string {

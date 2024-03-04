@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { LoaderService } from '../../shared/services/loader.service';
 import { PaymentType } from './../models/payment-type';
 
 @Injectable({
@@ -15,16 +16,18 @@ export class PaymentService {
 
   _payments = new BehaviorSubject<PaymentType[]>([]);
 
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient, private loaderService: LoaderService) { }
 
   getAll(): Observable<PaymentType[]> {
 
-    return this.http.get<PaymentType[]>(
+    const response = this.http.get<PaymentType[]>(
       this.API_URL,
       this.httpOptions
     ).pipe(
       tap(expenses => this._payments.next(expenses))
     );
+
+    return this.loaderService.showLoadingUntilCompleted(response);
   }
 
   getPaymentName(paymentId: number): string {

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, take } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
+import { LoaderService } from '../../shared/services/loader.service';
 import { Expense } from '../models/expense';
 
 @Injectable({
@@ -14,6 +15,7 @@ export class ExpensesApiService {
 
   private http = inject(HttpClient);
   private authService = inject(AuthService);
+  private loaderService = inject(LoaderService);
 
   constructor() { }
 
@@ -38,12 +40,14 @@ export class ExpensesApiService {
 
   getAllExpensesByYear(year: number): Observable<Expense[]> {
     let url = this.API_URL + `/all/${this.getUserId()}/${year}`;
-    return this.http.get<Expense[]>(url).pipe(take(1));
+    const response = this.http.get<Expense[]>(url).pipe(take(1));
+    return this.loaderService.showLoadingUntilCompleted(response);
   }
 
   getAllExpensesByMonth(month: number, year: number): Observable<Expense[]> {
     let url = this.API_URL + `/all/${this.getUserId()}/${year}/${month}`;
-    return this.http.get<Expense[]>(url).pipe(take(1));
+    const response = this.http.get<Expense[]>(url).pipe(take(1));
+    return this.loaderService.showLoadingUntilCompleted(response);
   }
 
   getYearsWithExpensesFromUser(): Observable<number[]> {

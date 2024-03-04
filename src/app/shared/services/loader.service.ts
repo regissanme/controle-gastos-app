@@ -1,16 +1,29 @@
-import { Injectable, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoaderService {
 
-  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-
+  private loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  loading$: Observable<boolean> = this.loadingSubject.asObservable()
 
   constructor() {
+  }
+
+  showLoadingUntilCompleted<T>(obs$: Observable<T>): Observable<T> {
+    this.loadingOn()
+    return obs$.pipe(finalize(() => this.loadingOff()));
+  }
+
+  loadingOn() {
+    this.loadingSubject.next(true);
+  }
+
+  loadingOff() {
+    this.loadingSubject.next(false);
+
   }
 
 }
