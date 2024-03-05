@@ -86,6 +86,12 @@ export class ExpensesService {
       );
     }
 
+    if (type === ExpenseFilterType.Category) {
+      [...this._expenses.getValue()].map(e =>
+        response.push({ label: `${this.getCategoryName(e.tipoDespesaId)}`, total: e.valor })
+      );
+    }
+
     if (type === ExpenseFilterType.Payment) {
       [...this._expenses.getValue()].map(e =>
         response.push({ label: `${this.getPaymentName(e.tipoPagamentoId)}`, total: e.valor })
@@ -100,7 +106,7 @@ export class ExpensesService {
   }
 
   private getCategoryName(id: number): string {
-    return this.categoryService.getExpenseCategoryName(id);
+    return this.categoryService.getExpenseCategoryNameByType(id);
   }
 
   private getPaymentName(id: number): string {
