@@ -90,7 +90,12 @@
     font-size: 4.2rem;
     height: 100%;
     width: 100%;
+    color: yellow;
   }
+}
+
+.content-icon .svg-test {
+  color: yellow;
 }
 
 .quantity {
