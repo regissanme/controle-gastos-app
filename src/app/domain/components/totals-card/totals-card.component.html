@@ -9,8 +9,8 @@
           <span [class]="valueTheme"><small>R$</small> {{ value | number:'1.2' }} </span>
         </div>
         <div class="content-icon">
-          <mat-icon class="material-symbols-outlined"> {{ iconName }} </mat-icon>
-          <mat-icon [svgIcon]="svg" class="svg-test"></mat-icon>
+          <!-- <mat-icon class="material-symbols-outlined"> {{ iconName }} </mat-icon> -->
+          <span [class]="iconName"></span>
         </div>
       </div>
       <div class="card-actions">

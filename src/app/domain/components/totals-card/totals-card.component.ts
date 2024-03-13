@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { IconResolver, MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { ModalService } from '../../../shared/services/modal.service';
 import { TypeCard } from '../../models/type-card';
@@ -35,13 +34,9 @@ export class TotalsCardComponent implements OnChanges {
   valueTheme = 'value';
   iconName = 'payments';
   tip = 'Novo';
-  img: string = '';
-  svg = '';
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    const resolver: IconResolver = (name) =>
-      sanitizer.bypassSecurityTrustResourceUrl(`/assets/icons/${name}.svg`);
-    iconRegistry.addSvgIconResolver(resolver);
+  constructor() {
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -59,22 +54,18 @@ export class TotalsCardComponent implements OnChanges {
     }
 
     if (this.type === TypeCard.Despesas) {
-      this.iconName = 'sell';
+      this.iconName = 'icon-ms-despesas';
       this.backgroundTheme = 'gradient-expenses';
       this.tip = "Nova Despesa";
-      this.img = "assets/icons/ms-expense.svg"
-      this.svg = 'ms-expense';
 
     } else if (this.type === TypeCard.Receitas) {
-      this.iconName = 'local_atm';
+      this.iconName = 'icon-ms-receitas';
       this.backgroundTheme = 'gradient-income';
       this.tip = "Nova Receita";
-      this.svg = "ms-income"
 
     } else {
-      this.iconName = 'price_change';
+      this.iconName = 'icon-ms-saldos';
       this.backgroundTheme = 'gradient-totals';
-      this.svg = "ms-balance"
     }
   }
 

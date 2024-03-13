@@ -76,7 +76,6 @@
   font-weight: 600;
   margin-bottom: 10px;
   color: rgb(207, 16, 16);
-  text-shadow: 1px 1px 4px #000000;
 
   small {
     font-size: 1.3rem;
@@ -86,6 +85,7 @@
 
 .card-content .content-icon {
   text-shadow: 1px 1px 2px #000000;
+  font-size: 3.8rem;
 
   >mat-icon {
     font-size: 4.2rem;
@@ -93,16 +93,6 @@
     width: 100%;
   }
 
-  > span, .icon-ms-balance {
-    font-size: 3.2rem;
-    height: 100%;
-    width: 100%;
-    color:rgb(1, 33, 105)
-  }
-}
-
-.content-icon .svg-test {
-  color: yellow;
 }
 
 .quantity {
