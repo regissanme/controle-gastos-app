@@ -1,16 +1,15 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { map } from 'rxjs';
+import { ExpensesChartComponent } from '../../../charts/expenses-chart/expenses-chart.component';
 import { TypeCard } from '../../../models/type-card';
+import { DashboardCardComponent } from '../../dashboard-card/dashboard-card.component';
 import { MonthSelectorComponent } from '../../month-selector/month-selector.component';
 import { TotalsCardComponent } from '../../totals-card/totals-card.component';
 import { ExpenseComponent } from '../expense/expense.component';
 import { ExpensesTableComponent } from '../expenses-table/expenses-table.component';
+import { LayoutService } from './../../../../shared/services/layout.service';
 import { ExpensesService } from './../../../services/expenses.service';
-import { ExpensesChartComponent } from '../../../charts/expenses-chart/expenses-chart.component';
-import { DashboardCardComponent } from '../../dashboard-card/dashboard-card.component';
 
 @Component({
   selector: 'app-expenses-dashboard',
@@ -25,8 +24,8 @@ import { DashboardCardComponent } from '../../dashboard-card/dashboard-card.comp
 })
 export class ExpensesDashboardComponent implements OnInit {
 
-  private breakpointObserver = inject(BreakpointObserver);
   private expensesService = inject(ExpensesService);
+  private layoutService = inject(LayoutService);
 
   expenseRoute = "app/expenses";
   expenseTypeCard = TypeCard.Despesas;
@@ -38,27 +37,7 @@ export class ExpensesDashboardComponent implements OnInit {
   selectedMonth = new Date().getMonth();
   selectedYear = new Date().getFullYear();
 
-  cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return {
-          columns: 1,
-          miniCard: { cols: 1, rows: 1 },
-          monthCard: { cols: 1, rows: 2 },
-          chart: { cols: 1, rows: 2 },
-          table: { cols: 1, rows: 4 },
-        };
-      }
-
-      return {
-        columns: 12,
-        miniCard: { cols: 6, rows: 1 },
-        monthCard: { cols: 8, rows: 1 },
-        chart: { cols: 6, rows: 2 },
-        table: { cols: 12, rows: 4 },
-      };
-    })
-  );
+  cardLayout$ = this.layoutService.cardLayout;
 
   ngOnInit(): void {
     this.expensesService.findYearsAndMonths(this.selectedYear)

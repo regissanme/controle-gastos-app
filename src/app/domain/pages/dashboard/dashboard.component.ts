@@ -1,4 +1,4 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,11 +6,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { map } from 'rxjs/operators';
 import { ExpensesChartComponent } from '../../charts/expenses-chart/expenses-chart.component';
 import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 import { TotalsCardComponent } from '../../components/totals-card/totals-card.component';
 import { TypeCard } from '../../models/type-card';
+import { LayoutService } from './../../../shared/services/layout.service';
 import { ExpensesService } from './../../services/expenses.service';
 
 @Component({
@@ -35,6 +35,7 @@ export class DashboardComponent {
 
   private breakpointObserver = inject(BreakpointObserver);
   private expensesService = inject(ExpensesService);
+  private layoutService = inject(LayoutService);
 
   selectedMonth = 0;
 
@@ -53,25 +54,7 @@ export class DashboardComponent {
   balanceTypeCard = TypeCard.Saldo;
   balanceValue = computed(() => this.incomeValue() - this.expensesValue());
 
-
-  cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return {
-          columns: 1,
-          miniCard: { cols: 1, rows: 1 },
-          chart: { cols: 1, rows: 2 },
-          table: { cols: 1, rows: 4 },
-        };
-      }
-
-      return {
-        columns: 12,
-        miniCard: { cols: 4, rows: 1 },
-        chart: { cols: 6, rows: 2 },
-        table: { cols: 12, rows: 4 },
-      };
-    })
-  );
+  /**********************  Layout Service **********************/
+  cardLayout$ = this.layoutService.cardLayout;
 
 }

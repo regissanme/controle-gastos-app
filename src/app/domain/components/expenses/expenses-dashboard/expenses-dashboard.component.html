@@ -1,11 +1,11 @@
 <div class="grid-container">
 
-  <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
+  <mat-grid-list cols="{{ ( cardLayout$ | async )?.columns }}" rowHeight="200px">
 
     <!--Total Card-->
     <mat-grid-tile
-      [colspan]="( cardLayout | async )?.miniCard?.cols"
-      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+      [colspan]="( cardLayout$ | async )?.miniCard?.cols"
+      [rowspan]="( cardLayout$ | async )?.miniCard?.rows">
       <app-totals-card
         [type]="expenseTypeCard"
         [route]="expenseRoute"
@@ -16,8 +16,8 @@
 
     <!-- Select Month -->
     <mat-grid-tile
-      [colspan]="( cardLayout | async )?.miniCard?.cols"
-      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+      [colspan]="( cardLayout$ | async )?.miniCard?.cols"
+      [rowspan]="( cardLayout$ | async )?.miniCard?.rows">
       <app-month-selector
         (monthEvent)="onSelectMonth($event)"
         (yearEvent)="onSelectYear($event)"
@@ -28,8 +28,8 @@
 
     <!--Charts-->
     <mat-grid-tile
-      [colspan]="( cardLayout | async )?.chart?.cols"
-      [rowspan]="( cardLayout | async )?.chart?.rows">
+      [colspan]="( cardLayout$ | async )?.chart?.cols"
+      [rowspan]="( cardLayout$ | async )?.chart?.rows">
       <app-dashboard-card title="Gráfico Mensal">
         <app-expenses-chart></app-expenses-chart>
       </app-dashboard-card>
