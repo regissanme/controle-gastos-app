@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?blnwnq');
-  src:  url('fonts/icomoon.eot?blnwnq#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?blnwnq') format('truetype'),
-    url('fonts/icomoon.woff?blnwnq') format('woff'),
-    url('fonts/icomoon.svg?blnwnq#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?9oe5jj');
+  src:  url('fonts/icomoon.eot?9oe5jj#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?9oe5jj') format('truetype'),
+    url('fonts/icomoon.woff?9oe5jj') format('woff'),
+    url('fonts/icomoon.svg?9oe5jj#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -35,19 +35,27 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-ms-despesas:before {
-  content: "\e920";
+.icon-ms-balance-outline:before {
+  content: "\e950";
   color: #fff;
 }
-.icon-ms-receitas:before {
-  content: "\e921";
+.icon-ms-expense-outline:before {
+  content: "\e951";
   color: #fff;
 }
-.icon-ms-saldo:before {
-  content: "\e922";
+.icon-ms-income-outline:before {
+  content: "\e952";
   color: #fff;
 }
-.icon-ms-saldos:before {
-  content: "\e923";
+.icon-ms-expense:before {
+  content: "\e901";
+  color: #fff;
+}
+.icon-ms-income:before {
+  content: "\e902";
+  color: #fff;
+}
+.icon-ms-balance:before {
+  content: "\e903";
   color: #fff;
 }

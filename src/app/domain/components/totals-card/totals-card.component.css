@@ -75,7 +75,8 @@
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 10px;
-  color: rgb(207, 16, 16);
+  color: rgb(250, 39, 39);
+  text-shadow: 1px 1px 4px #000000;
 
   small {
     font-size: 1.3rem;
@@ -88,7 +89,7 @@
   font-size: 3.8rem;
 
   >mat-icon {
-    font-size: 4.2rem;
+    font-size: 3.8rem;
     height: 100%;
     width: 100%;
   }
@@ -131,7 +132,7 @@
 
 .gradient-totals {
   background: rgb(1, 33, 105);
-  background: linear-gradient(90deg, rgb(0, 31, 105, ) 0%, rgba(0, 48, 143, 1) 35%, rgba(0, 127, 255, 1) 100%);
+  background: linear-gradient(90deg, rgb(0, 27, 88) 0%, rgb(0, 51, 151) 35%, rgb(5, 129, 253) 100%);
 }
 
 .gradient-expenses {

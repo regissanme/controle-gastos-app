@@ -54,17 +54,17 @@ export class TotalsCardComponent implements OnChanges {
     }
 
     if (this.type === TypeCard.Despesas) {
-      this.iconName = 'icon-ms-despesas';
+      this.iconName = 'icon-ms-expense';
       this.backgroundTheme = 'gradient-expenses';
       this.tip = "Nova Despesa";
 
     } else if (this.type === TypeCard.Receitas) {
-      this.iconName = 'icon-ms-receitas';
+      this.iconName = 'icon-ms-income';
       this.backgroundTheme = 'gradient-income';
       this.tip = "Nova Receita";
 
     } else {
-      this.iconName = 'icon-ms-saldos';
+      this.iconName = 'icon-ms-balance';
       this.backgroundTheme = 'gradient-totals';
     }
   }
