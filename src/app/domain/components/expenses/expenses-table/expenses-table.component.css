@@ -1,4 +1,12 @@
+.container-table {
+  min-height: 400px;
+  max-width: 100%;
+  overflow: auto;
+  /* background-color: yellow; */
+}
+
 .full-width-table {
+  min-height: 200px;
   width: 100%;
 }
 
