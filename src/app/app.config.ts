@@ -8,14 +8,13 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { GlobalErrorHandlerService } from './shared/services/global-error-handler.service';
-import { loaderInterceptor } from './shared/interceptors/loader.interceptor';
 registerLocaleData(localePtBr);
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
-    provideHttpClient(withInterceptors([authInterceptor, loaderInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor])),
 
     {
       provide: ErrorHandler,
