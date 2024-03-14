@@ -3,7 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ChartData, ChartOptions, ChartType } from 'chart.js';
-import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 import { ExpenseChartData } from '../../models/expense-chart-data';
 import { ExpenseFilterType } from '../../models/expense-filter-type';
 import { ExpensesService } from '../../services/expenses.service';
@@ -11,7 +11,7 @@ import { ExpensesService } from '../../services/expenses.service';
 @Component({
   selector: 'app-expenses-chart',
   standalone: true,
-  imports: [NgChartsModule, ReactiveFormsModule,
+  imports: [BaseChartDirective, ReactiveFormsModule,
     MatSelectModule, MatInputModule,
   ],
   templateUrl: './expenses-chart.component.html',

@@ -8,6 +8,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { GlobalErrorHandlerService } from './shared/services/global-error-handler.service';
+import {
+  provideCharts,
+  withDefaultRegisterables,
+  } from 'ng2-charts';
+
 registerLocaleData(localePtBr);
 
 export const appConfig: ApplicationConfig = {
@@ -15,6 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideHttpClient(withInterceptors([authInterceptor])),
+    provideCharts(withDefaultRegisterables()),
 
     {
       provide: ErrorHandler,
