@@ -15,6 +15,15 @@ mat-toolbar span {
   margin-left: 5px;
 }
 
+mat-toolbar button {
+  color: white;
+}
+
+mat-toolbar button:hover {
+  background-color: #99af76;
+  color: white;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
@@ -28,6 +37,4 @@ mat-sidenav-content {
   transition: all 500ms ease-in-out;
 }
 
-button:hover {
-  background-color: #99af76;
-}
+
