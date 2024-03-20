@@ -1,0 +1,21 @@
+<div class="ny-container">
+
+  <div class="ny-sad">
+    <span > :( </span>
+  </div>
+  <div>
+    <h2> Você ainda não tem <b>{{ message() }}</b> para mostrar. </h2>
+  </div>
+  <div>
+    <h3> Clique no botão para lançar uma despesa! </h3>
+  </div>
+  <div class="actions">
+    <button mat-fab extended
+    [class]="type() === 'Despesas' ? 'gradient-expenses' : 'gradient-income'"
+    (click)="openDialog()"
+    >
+      <span [class]="iconName()"></span>
+      Adicionar {{ message() }}</button>
+  </div>
+
+</div>
