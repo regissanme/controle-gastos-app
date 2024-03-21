@@ -70,7 +70,7 @@ export class LayoutService implements OnDestroy {
           miniCard: { cols: 6, rows: 1 },
           balanceCard: { cols: 4, rows: 1 },
           monthCard: { cols: 8, rows: 1 },
-          chart: { cols: 6, rows: 2 },
+          chart: { cols: 12, rows: 2 },
           table: { cols: 12, rows: 4 },
         });
         break;
