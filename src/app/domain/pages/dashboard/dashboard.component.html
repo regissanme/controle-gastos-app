@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Painel</h1>
+  <!-- <h1 class="mat-h1">Painel</h1> -->
   <mat-grid-list cols="{{ ( cardLayout$ | async )?.columns }}" rowHeight="200px">
 
     <!-------------------- Income Totals Card -------------------->
@@ -28,23 +28,45 @@
 
 
     <!-------------------------- Charts --------------------------->
-    @for (i of [1,2]; track i) {
+
+    <!-------------------- Income Chart -------------------->
     <mat-grid-tile
      [colspan]="( cardLayout$ | async )?.chart?.cols"
      [rowspan]="( cardLayout$ | async )?.chart?.rows"
     >
-      <app-dashboard-card title="Gráfico {{i}}">
+      <app-dashboard-card [title]="incomeTypeCard">
+        @if(incomeValue() === 0){
+          <app-nothing-yet [type]="incomeTypeCard"></app-nothing-yet>
+        }
+        @else {
         <app-expenses-chart></app-expenses-chart>
+        }
       </app-dashboard-card>
     </mat-grid-tile>
-    }
+
+    <!-------------------- Expenses Chart -------------------->
+
+    <mat-grid-tile
+     [colspan]="( cardLayout$ | async )?.chart?.cols"
+     [rowspan]="( cardLayout$ | async )?.chart?.rows"
+    >
+      <app-dashboard-card [title]="expenseTypeCard">
+        @if(expensesValue() === 0){
+          <app-nothing-yet [type]="expenseTypeCard"></app-nothing-yet>
+        }
+        @else {
+        <app-expenses-chart></app-expenses-chart>
+        }
+      </app-dashboard-card>
+    </mat-grid-tile>
+
 
     <!--------------------------- Table --------------------------->
-    <mat-grid-tile [colspan]="( cardLayout$ | async )?.table?.cols" [rowspan]="( cardLayout$ | async )?.table?.rows">
+    <!-- <mat-grid-tile [colspan]="( cardLayout$ | async )?.table?.cols" [rowspan]="( cardLayout$ | async )?.table?.rows">
       <app-dashboard-card title="Lançamentos">
         <span>Conteúdo da Tabela aqui</span>
       </app-dashboard-card>
-    </mat-grid-tile>
+    </mat-grid-tile> -->
 
   </mat-grid-list>
 </div>

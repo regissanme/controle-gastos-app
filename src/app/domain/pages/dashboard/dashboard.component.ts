@@ -12,6 +12,7 @@ import { TotalsCardComponent } from '../../components/totals-card/totals-card.co
 import { TypeCard } from '../../models/type-card';
 import { LayoutService } from './../../../shared/services/layout.service';
 import { ExpensesService } from './../../services/expenses.service';
+import { NothingYetComponent } from '../../components/nothing-yet/nothing-yet.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,6 +30,7 @@ import { ExpensesService } from './../../services/expenses.service';
     DashboardCardComponent,
     TotalsCardComponent,
     ExpensesChartComponent,
+    NothingYetComponent
   ]
 })
 export class DashboardComponent {
