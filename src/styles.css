@@ -64,3 +64,19 @@ body {
     color: white !important;
   }
 }
+
+
+.gradient-totals {
+  background: rgb(1, 33, 105);
+  background: linear-gradient(90deg, rgb(0, 27, 88) 0%, rgb(0, 51, 151) 35%, rgb(5, 129, 253) 100%);
+}
+
+.gradient-expenses {
+  background: rgb(102, 0, 0);
+  background: linear-gradient(90deg, rgba(102, 0, 0, 1) 0%, rgba(196, 30, 58, 1) 35%, rgba(226, 88, 34, 1) 100%);
+}
+
+.gradient-income {
+  background: rgb(0, 86, 59);
+  background: linear-gradient(90deg, rgba(0, 86, 59, 1) 0%, rgba(1, 135, 73, 1) 35%, rgba(80, 200, 120, 1) 100%);
+}
