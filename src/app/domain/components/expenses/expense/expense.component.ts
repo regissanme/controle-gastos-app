@@ -79,7 +79,7 @@ export class ExpenseComponent {
           next: response => {
             this.notificationService.success("Despesa salva com sucesso!");
             this.expenseService.getAllExpensesByMonth(
-              this.getDate(response.data).getMonth(),
+              this.getDate(response.data).getMonth()+1,
               this.getDate(response.data).getFullYear()
             );
           },
