@@ -78,10 +78,7 @@ export class ExpenseComponent {
         this.expenseService.create(expense).subscribe({
           next: response => {
             this.notificationService.success("Despesa salva com sucesso!");
-            this.expenseService.getAllExpensesByMonth(
-              this.getDate(response.data).getMonth()+1,
-              this.getDate(response.data).getFullYear()
-            );
+            this.updateData(response);
           },
           error: err => {
             console.log("Erro ao salvar: " + JSON.stringify(err));
@@ -96,6 +93,16 @@ export class ExpenseComponent {
       console.log("Formulário inválido ou usuário não logado!")
     }
   }
+
+  updateData(expense: Expense) {
+    let date = this.getDate(expense.data);
+    if (date.getFullYear() != this.expenseService.selectedYear()) {
+      this.expenseService.findYearsAndMonths(date.getFullYear());
+    }
+
+    this.expenseService.getAllExpensesByMonth(date.getMonth() + 1, date.getFullYear());
+  }
+
   resetForm() {
     this.expenseForm.reset();
     this.selectedCategory.setValue(null);

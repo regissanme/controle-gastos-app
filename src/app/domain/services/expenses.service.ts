@@ -23,8 +23,12 @@ export class ExpensesService {
   );
   yearsWithExpenses = signal<number[]>([]);
   monthsWithExpenses = signal<number[]>([]);
+  selectedMonth = signal<number>(new Date().getMonth() + 1);
+  selectedYear = signal<number>(new Date().getFullYear());
 
   constructor() {
+    // effect(() => console.log("Exp Service :: month: " + this.selectedMonth + " - year: " + this.selectedYear)
+    // );
   }
 
   create(expense: Expense): Observable<Expense> {
@@ -40,10 +44,13 @@ export class ExpensesService {
   }
 
   getAllExpensesByMonth(month: number, year: number): void {
+
+    this.selectedMonth.set(month);
+    this.selectedYear.set(year);
     this.expensesApiService.getAllExpensesByMonth(month, year)
       .subscribe(value => {
-        this._expenses.next(value),
-          this.expensesSig.set(value)
+        this._expenses.next(value);
+        this.expensesSig.set(value);
       });
   }
 
@@ -52,14 +59,14 @@ export class ExpensesService {
     this.getMonthsWithExpensesFromUserAndYear(year);
   }
 
-  getYearsWithExpensesFromUser(): void {
+  private getYearsWithExpensesFromUser(): void {
     this.expensesApiService.getYearsWithExpensesFromUser()
       .subscribe(values => {
         this.yearsWithExpenses.set(values);
       });
   }
 
-  getMonthsWithExpensesFromUserAndYear(year: number): void {
+  private getMonthsWithExpensesFromUserAndYear(year: number): void {
     this.expensesApiService.getMonthsWithExpensesFromUserAndYear(year)
       .subscribe(values => {
         this.monthsWithExpenses.set(values);

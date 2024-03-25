@@ -1,8 +1,7 @@
 <div class="grid-container">
-
   <mat-grid-list cols="{{ ( cardLayout$ | async )?.columns }}" rowHeight="200px">
 
-    <!--Total Card-->
+    <!-------------------------------- Total Card -------------------------------->
     <mat-grid-tile
       [colspan]="( cardLayout$ | async )?.miniCard?.cols"
       [rowspan]="( cardLayout$ | async )?.miniCard?.rows">
@@ -14,11 +13,13 @@
         [quantity]="expenseQuantity()" />
     </mat-grid-tile>
 
-    <!-- Select Month -->
+    <!-------------------------------- Select Month -------------------------------->
     <mat-grid-tile
       [colspan]="( cardLayout$ | async )?.miniCard?.cols"
       [rowspan]="( cardLayout$ | async )?.miniCard?.rows">
       <app-month-selector
+        [(selectedMonth)]="selectedMonth"
+        [(selectedYear)]="selectedYear"
         (monthEvent)="onSelectMonth($event)"
         (yearEvent)="onSelectYear($event)"
         [activeMonths]="activeMonths()"
@@ -26,19 +27,25 @@
       </app-month-selector>
     </mat-grid-tile>
 
-    <!--Charts-->
+    <!--------------------------------- Charts -------------------------------->
     <mat-grid-tile
       [colspan]="( cardLayout$ | async )?.chart?.cols"
       [rowspan]="( cardLayout$ | async )?.chart?.rows">
       <app-dashboard-card title="Gráfico Mensal">
+        @if(hasExpenses()){
         <app-expenses-chart></app-expenses-chart>
+        }
+        @else {
+        <app-nothing-yet [type]="expenseTypeCard"></app-nothing-yet>
+        }
       </app-dashboard-card>
     </mat-grid-tile>
 
-
   </mat-grid-list>
 
-  <!-- Expense Table -->
+  <!--------------------------------- Expense Table -------------------------------->
+  @if(hasExpenses()){
   <app-expenses-table></app-expenses-table>
+  }
 
 </div>
