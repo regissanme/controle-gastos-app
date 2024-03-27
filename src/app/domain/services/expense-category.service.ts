@@ -45,4 +45,9 @@ export class ExpenseCategoryService {
       .find(t => t.id === expenseTypeId)?.descricao ?? 'none';
   }
 
+  getExpenseCategoryByExpensetype(expenseTypeId: number) {
+    return this._expensesCategory.getValue()
+      .find(e => e.tiposDespesas.find(t => t.id === expenseTypeId));
+  }
+
 }
