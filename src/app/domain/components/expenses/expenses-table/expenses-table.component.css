@@ -2,7 +2,6 @@
   min-height: 400px;
   max-width: 100%;
   overflow: auto;
-  /* background-color: yellow; */
 }
 
 .full-width-table {
@@ -16,4 +15,12 @@
     display: flex;
     flex-grow: 1;
     min-width: 100%;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+   cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background: rgba(154, 219, 156, 0.15)
 }

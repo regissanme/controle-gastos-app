@@ -43,14 +43,14 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row (click)="onEdit(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
   <mat-paginator #paginator
-      [length]="dataSource.expenses$.getValue().length"
-      [pageIndex]="0"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 20]"
-      aria-label="Select page">
+    [length]="dataSource.expenses$.getValue().length"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]"
+    aria-label="Select page">
   </mat-paginator>
 </div>

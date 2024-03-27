@@ -3,10 +3,12 @@ import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
+import { ModalService } from '../../../../shared/services/modal.service';
 import { Expense } from '../../../models/expense';
 import { ExpenseCategoryService } from '../../../services/expense-category.service';
 import { ExpensesService } from '../../../services/expenses.service';
 import { PaymentService } from '../../../services/payment.service';
+import { ExpenseComponent } from '../expense/expense.component';
 import { ExpensesTableDataSource } from './expenses-table-datasource';
 
 @Component({
@@ -20,6 +22,7 @@ export class ExpensesTableComponent implements AfterViewInit {
   expensesService = inject(ExpensesService);
   expenseCategoryService = inject(ExpenseCategoryService);
   paymentService = inject(PaymentService);
+  modalService = inject(ModalService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -37,15 +40,19 @@ export class ExpensesTableComponent implements AfterViewInit {
     this.paymentService.getAll().subscribe();
   }
 
-  getTypeName(id: number) {
+  getTypeName(id: number): string {
     return this.expenseCategoryService.getExpenseTypeName(id);
   }
 
-  getCategoryName(id: number) {
+  getCategoryName(id: number): string {
     return this.expenseCategoryService.getExpenseCategoryName(id);
   }
 
-  getPaymentName(id: number) {
+  getPaymentName(id: number): string {
     return this.paymentService.getPaymentName(id);
+  }
+
+  onEdit(expense: Expense): void {
+    this.modalService.showEditExpense(ExpenseComponent, expense);
   }
 }
