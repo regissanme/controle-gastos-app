@@ -30,6 +30,10 @@ export class ExpenseCategoryService {
     return this.loaderService.showLoadingUntilCompleted(response);
   }
 
+  getById(expenseCategoryId: number) {
+    return this._expensesCategory.getValue().find(e => e.id === expenseCategoryId);
+  }
+
   getExpenseCategoryName(categoryId: number): string {
     return this._expensesCategory.getValue().find((e) => e.id === categoryId)?.descricao ?? 'none';
   }
